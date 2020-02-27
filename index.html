@@ -1,8 +1,42 @@
-<html>
-    <head>
-        <title>GitHub Test Site</title>
-    </head>
-    <body>
-        <p>Hello World</p>
-    </body>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+<title>CodePen - Risbane V.0.3.8</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="main.css" media="screen"/>
+</head>
+<body translate="no">
+<div id="main">
+<div id="output">
+<p id="outText"></p>
+<button id='startBTN' onclick='startGame()'>Start</button>
+<button id='learnMoreBTN' onclick="learnMore()">Learn More</button>
+<input id="mainInput">
+</div>
+<div id="sidebar">
+<div id="playerStatBar">
+</div>
+</div>
+<div id="inventoryOpt"></div>
+<div id="topbar">
+<h1>Risbane V.0.3.8</h1>
+<div id="clevel">Level: 0</div><div id="xpBar"><span id="xpPercent"></span><span id="numXP">0%</span></div><div id="nlevel">Next: 1</div>
+</div>
+<div id="bottombar">
+<div id="turnCounter">Turn:</div>
+</div>
+</div>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<script src="main.js"></script>
+</body>
 </html>

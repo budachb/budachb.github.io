@@ -1,0 +1,462 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
+
+body, html {
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+#inventoryOpt {
+	width: 32.5%;
+	height: 78%;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	background-color: darkgray;
+	border: 2px solid black;
+   right: 36.5%;
+}
+
+#inventoryOpt button {
+	text-align: center;
+	padding: 5px 15px 5px 15px;
+	margin: 8px;
+	border: 1px solid black;
+	cursor: pointer;
+}
+
+#inventoryOpt h2, #inventoryOpt h1 {
+	text-align: center;
+	font-weight: bold;
+}
+
+#inventoryOpt p {
+	padding: 5px 15px 5px 15px;
+	margin: 0px;
+}
+
+#main {
+	width: 100%;
+	height: 100%;
+	background-color: grey;
+}
+
+#output {
+	border: 1px solid black;
+	background-color: #808080;
+	width: 65%;
+	height: 75%;
+   margin: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	padding: 10px;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: bold;
+	overflow-y: scroll;
+}
+
+#sidebar {
+	border: 1px solid black;
+	background-color: #808080;
+	width: 35%;
+	height: 75%;
+  	margin: auto;
+	padding: 10px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+#sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+#topbar {
+	border: 1px solid black;
+	background-color: #808080;
+	width: 100%;
+	height: 12%;
+   margin: auto;
+	position: absolute;
+	top: 0;
+}
+
+#bottombar {
+	border: 1px solid black;
+	background-color: #808080;
+	width: 100%;
+	height: 12%;
+  margin: auto;
+	position: absolute;
+	bottom: 0;
+}
+
+#topbar h1 {
+	margin-left: 10px;
+	font-weight: bold; 
+	font-family: 'Ubuntu', sans-serif;
+}
+
+#output button {
+	margin: 10px;
+	font-family: 'Ubuntu', sans-serif;
+	border: 2px solid black;
+	padding: 5px 10px 5px 10px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: 0.5s;
+}
+
+#output button:hover {
+	box-shadow: 2px 2px 2px #202020;
+}
+
+#output input {
+	background-color: #808080;
+	border: none;
+}
+
+#output input:focus {
+	outline: none;
+}
+
+#increaseSt {
+	margin-left: 10px;
+	background-color: darkgray;
+	border: none;
+}
+
+#increaseSt:focus {
+	outline: none;
+}
+
+#wepNameIn {
+	margin-left: 10px;
+}
+
+#nameInput {
+	margin-left: 10px;
+	background-color: #808080;
+	border: 2px solid black;
+	border-radius: 10px;
+}
+
+#nameInput:focus {
+	outline: none;
+}
+
+#sidebar #playerStatBar {
+	margin: 0px;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	font-size: 1.8rem;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: bold;
+	overflow-y: scroll;
+}
+
+#turnCounter {
+	width: 15%;
+	height: 10%;
+	margin: auto;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	padding-left: 20px;
+	font-size: 1.3rem;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: bold;
+}
+
+#xpBar {
+	width: 20%;
+	height: 40%;
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	right: 10%;
+	background-color: #202020;
+	border: 2px solid black;
+	border-radius: 20px;
+}
+
+#clevel {
+	width: 10%;
+	height: 40%;
+	text-align: center;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	right: 30%;
+	color: black;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+
+#nlevel {
+	width: 10%;
+	height: 40%;
+	text-align: center;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	right: 0;
+	color: black;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: bold;
+	font-size: 1.5rem;
+}
+
+
+#xpPercent {
+	position: inherit;
+	height: 100%;
+	background: repeating-linear-gradient(
+  -45deg,
+  #22316C,
+  #22316C 10px,
+  #162252 10px,
+  #162252 20px
+  );
+	text-align: center;
+	padding: auto;
+	border-radius: 20px;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: bold;
+	font-size: 1.5rem;
+	color: white;
+}
+
+topbar p {
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: bold;
+	font-size: 1.5rem;
+	color: white;
+	display: inline;
+}
+
+#nextBattle {
+	position: absolute;
+	bottom: 20px;
+	right: 40px;
+	margin: 10px;
+	font-family: 'Ubuntu', sans-serif;
+	border: 2px solid black;
+	padding: 5px 10px 5px 10px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: 0.5s;
+}
+
+#inventoryBack {
+	position: absolute;
+	bottom: 20px;
+	right: 40px;
+	margin: 10px;
+	font-family: 'Ubuntu', sans-serif;
+	border: 2px solid black;
+	padding: 5px 10px 5px 10px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: 0.5s;
+}
+
+#nextBattle:hover {
+	box-shadow: 2px 2px 2px #202020;
+}
+
+#invTable {
+	table-layout: fixed;
+	background-color: #202020;
+	position: absolute;
+	color: white;
+	font-weight: bold;
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	left: 0;
+	border: 2px solid black;
+}
+
+#invTable th {
+	display: block;
+	margin: 0px;
+	padding: 10px;
+	text-align: left;
+	font-size: 2rem;
+}
+
+#invTable tr {
+	display: block;
+}
+
+#invTable td div {
+	display: block;
+	position: inherit;
+	width: 65px;
+	height: 75px;
+	margin: 5px;
+	padding: 10px;
+	border: 1px solid white;
+	border-radius: 15px;
+	text-align: center;
+	cursor: pointer;
+	font-size: 10px;
+	text-align: center;
+	word-wrap: break-word;
+}
+
+#invTable td div img {
+	width: 70%;
+	padding-left: 15%;
+	padding-right: 15%;
+	height: auto; 
+}
+
+#tableContainer {
+	position: interit;
+	height: 100%;
+	width: 100%; 
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+.info {
+	display: none;
+}
+
+.energycrystal.lvl1 {
+	background-color: #303030;
+}
+
+.energycrystal.lvl2 {
+	background-color: #9b870c;
+}
+
+.healthcrystal.lvl1 {
+	background-color: #303030;
+}
+
+.healthcrystal.lvl2 {
+	background-color: darkblue;
+}
+
+.weapon.lvl0 {
+	background-color: black;
+}
+
+.weapon.lvl1 {
+	background-color: #101010;
+}
+
+.weapon.lvl1.poison {
+	background-color: #013220;
+}
+
+.weapon.lvl1.fire {
+	background-color: #ff8c00;
+}
+
+.weapon.lvl1.ice {
+	background-color: #00003f;
+}
+
+.rarity1 {
+	color: black;
+}
+
+.rarity2 {
+	color: darkblue;
+}
+
+#numXP {
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: bold;
+	font-size: 1.5rem;
+	color: white;
+}
+
+#weaponContainer {
+	position: absolute;
+	height: 50%;
+	width: 100%;
+	padding: 20px;
+}
+
+#weaponContainer img {
+	position: absolute;
+	width: 15%;
+	padding: 20px;
+	margin: 10px;
+	height: auto;
+	border: 2px solid white;
+	border-radius: 15px;
+}
+
+#weaponContainer #wStatContainer {
+	position: absolute;
+	right: 0;
+	margin-top: 10px;
+	margin-right: 40%;
+	width: 30%;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+#weaponStC {
+	font-family: 'Ubuntu', sans-serif;
+	display: inline;
+}
+
+#pstat {
+	font-family: 'Ubuntu', sans-serif;
+	display: inline;
+}
+
+/* Damage type colors */
+
+#d_fire {
+	color: #CC6600; 
+	font-weight: bold;
+	margin: 0px;
+	padding: 0px;
+	display: inline;
+}
+
+#d_ice {
+	color: blue; 
+	font-weight: bold;
+	margin: 0px;
+	padding: 0px;
+	display: inline;
+}
+
+#d_poison {
+	color: green; 
+	font-weight: bold;
+	margin: 0px;
+	padding: 0px;
+	display: inline;
+}
+
+.stat_secondary {
+	color: #808080;
+	margin: 0px;
+	padding: 0px;
+	display: inline;
+}
