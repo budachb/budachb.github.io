@@ -1,5 +1,5 @@
 // JavaScript File for Risbane:
-// V.0.3.9
+// V.0.3.9.5
 
 // Main Global Varriables
 
@@ -2018,6 +2018,23 @@ function slotInstall(item, slot, action) {
 		$("#eqConfirm").click(function() {
 		location = parseInt(location);
 		location = location - 1;
+		
+		// Adds Item Being Replaced Back to Inventory
+		if (Player.inventoryEquipped[location][1] == "energycrystal") {
+			Player.inventory[3][2][1][0].push("Small Energy Crystal");
+			Player.inventory[3][2][1][1].push(1);
+		} else if (Player.inventoryEquipped[location][1] == "energycrystal2") {
+			Player.inventory[3][2][1][0].push("Average Energy Crystal");
+			Player.inventory[3][2][1][1].push(2);
+		} else if (Player.inventoryEquipped[location][1] == "healthcrystal") {
+			Player.inventory[3][1][1][0].push("Small Health Crystal");
+			Player.inventory[3][1][1][1].push(1);
+		} else if (Player.inventoryEquipped[location][1] == "healthcrystal2") {
+			Player.inventory[3][1][1][0].push("Average Health Crystal");
+			Player.inventory[3][1][1][1].push(2);
+		}
+		
+		// Adds item to equipped and removes from inventory.
 		Player.inventoryEquipped[location].splice(1, Player.inventoryEquipped[location].length);
 		Player.inventoryEquipped[location].push(item);
 		if (item == "energycrystal") {
