@@ -1,5 +1,5 @@
 // JavaScript File for Risbane:
-// V.0.3.9.5
+// V.0.4.0
 
 // Main Global Varriables
 
@@ -1513,9 +1513,11 @@ function statUpgradeClick(stat, upgrade, cost) {
 }
 
 function inventoryPlayer() {
+	/* Player.inventoryEquipped.push([(Player.inventoryEquipped.length+1)]); Increase inventory slots script, for when skill tree exists. */
 	$("#inventoryOpt").html("<h1>Gear:</h1><br><p>Select an inventory slot to equip an item</p>");
 	var rowNumber = 1;
 	var slotID = 0;
+	var currentSlot = 0;
 	output.html("");
 	output.append("<div id='tableContainer'><table id='invTable'><thead><th>Inventory:</th></thead><tbody><tr id='tr1'></tr></tbody></table></div>");
 	$("#bottombar").append("<button id='inventoryBack'>Back</button>");
@@ -1525,9 +1527,10 @@ function inventoryPlayer() {
 	});
 	for (var invslots = 0; invslots < Player.inventoryEquipped.length; invslots++) {
 		slotID++;
-		if (slotID >= 5) {
+		currentSlot++;
+		if (currentSlot >= 5) {
 			rowNumber += 1;
-			slotID = 1;
+			currentSlot = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
 		if (Player.inventoryEquipped[(slotID - 1)].length > 1) {
@@ -2166,6 +2169,8 @@ function battleInventory() {
 	$("#inventoryOpt").html("<h1>Select An Item:</h1><br><p>Select an equipped item to see actions.</p>");
 	var rowNumber = 1;
 	var slotID = 0;
+	var currentSlot = 0;
+	var selectable = true;
 	output.html("");
 	output.append("<div id='tableContainer'><table id='invTable'><thead><th>Inventory:</th></thead><tbody><tr id='tr1'></tr></tbody></table></div>");
 	
@@ -2182,9 +2187,10 @@ function battleInventory() {
 	
 	for (var invslots = 0; invslots < Player.inventoryEquipped.length; invslots++) {
 		slotID++;
-		if (slotID >= 5) {
+		currentSlot++;
+		if (currentSlot >= 5) {
 			rowNumber += 1;
-			slotID = 1;
+			currentSlot = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
 		if (Player.inventoryEquipped[(slotID - 1)].length > 1) {
@@ -2203,20 +2209,170 @@ function battleInventory() {
 	}
 
 	var selected = [];
-	inventoryActionUpdate(selected);
 
 	$(".select").click(function() {
 		if ($(this).hasClass('unselected')) {
+			if (selectable) {
+				selectable = false;
+				$(this).css("border", "1px solid blue");
 			$(this).removeClass("unselected").addClass("selected");
-			$(this).css("border", "1px solid blue");
-			battleInventoryAction(selected);
+			if ($(this).hasClass('swordshard')) {
+				selected.push("swordshard");
+				battleInventoryAction(selected, $(this).attr("id"));
+			} else if ($(this).hasClass('axeshard')) {
+				selected.push("axeshard");
+				battleInventoryAction(selected, $(this).attr("id"));
+			} else if ($(this).hasClass('bowshard')) {
+				selected.push("bowshard");
+				battleInventoryAction(selected, $(this).attr("id"));
+			} else if ($(this).hasClass("healthcrystal")) {
+				if ($(this).hasClass("lvl1")) {
+					selected.push("healthcrystal");
+					battleInventoryAction(selected, $(this).attr("id"));
+				} else if ($(this).hasClass("lvl2")) {
+					selected.push("healthcrystal2");
+					battleInventoryAction(selected, $(this).attr("id"));
+				}
+			} else if ($(this).hasClass("energycrystal")) {
+				if ($(this).hasClass("lvl1")) {
+					selected.push("energycrystal");
+					battleInventoryAction(selected, $(this).attr("id"));
+				} else if ($(this).hasClass("lvl2")) {
+					selected.push("energycrystal2");
+					battleInventoryAction(selected, $(this).attr("id"));
+				}
+			} else if ($(this).hasClass("weapon")) {
+				selected.push($(this).text());
+				battleInventoryAction(selected, $(this).attr("id"));
+			}
+			} else {
+				alert("You can only select One Item at a time!");
+			}
 		} else {
-			$(this).removeClass("selected").addClass("unselected");
+			selectable = true;
 			$(this).css("border", "1px solid white");
+			$(this).removeClass("selected").addClass("unselected");
+			if ($(this).hasClass('swordshard')) {
+				for (var f = 0; f < selected.length; f++) {
+					if (selected[f] == "swordshard") {
+						selected.splice(f, 1);
+						f = selected.length;
+						battleInventoryAction(selected, $(this).attr("id"));
+					}
+				}
+			} else if ($(this).hasClass('axeshard')) {
+				for (var f = 0; f < selected.length; f++) {
+					if (selected[f] == "axeshard") {
+						selected.splice(f, 1);
+						f = selected.length;
+						battleInventoryAction(selected, $(this).attr("id"));
+					}
+				}
+			} else if ($(this).hasClass('bowshard')) {
+				for (var f = 0; f < selected.length; f++) {
+					if (selected[f] == "bowshard") {
+						selected.splice(f, 1);
+						f = selected.length;
+						battleInventoryAction(selected, $(this).attr("id"));
+					}
+				}
+			} else if ($(this).hasClass('healthcrystal')) {
+				for (var f = 0; f < selected.length; f++) {
+					if (selected[f] == "healthcrystal") {
+						selected.splice(f, 1);
+						f = selected.length;
+						battleInventoryAction(selected);
+					} else if (selected[f] == "healthcrystal2") {
+						selected.splice(f, 1);
+						f = selected.length;
+						battleInventoryAction(selected, $(this).attr("id"));
+					}
+				}
+			} else if ($(this).hasClass('energycrystal')) {
+				for (var f = 0; f < selected.length; f++) {
+					if (selected[f] == "energycrystal") {
+						selected.splice(f, 1);
+						f = selected.length;
+						battleInventoryAction(selected, $(this).attr("id"));
+					} else if (selected[f] == "energycrystal2") {
+						selected.splice(f, 1);
+						f = selected.length;
+						battleInventoryAction(selected, $(this).attr("id"));
+					}
+				}
+			} else if ($(this).hasClass('weapon')) {
+				for (var f = 0; f < selected.length; f++) {
+					if (selected[f] == $(this).text()) {
+						selected.splice(f, 1);
+						f = selected.length;
+						battleInventoryAction(selected, $(this).attr("id"));
+					}
+				}
+			}
 		}
 	});
 }
 
-function battleInventoryAction(item) {
+function battleInventoryAction(item, slot) {
 	// Give options for each item
+	$("#inventoryOpt").html("<h1>Select An Item:</h1><br><p>Select an equipped item to see actions.</p>");
+	for (var x = 0; x < item.length; x++) {
+		if (item[x] == "swordshard" && item.length == 1) {
+			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Sword Shard:</h2><br><br></center><p>Description: a fragmented piece of metal that once was part of a sword. If three of these are melted down they can be used to forge a new sword. <br><br>Scrap Value: 100 xp<br>Scrap Items: None<br><br>Equipable: no<br><br>Level: 0</p>");
+		} else if (item[x] == "axeshard" && item.length == 1) {
+			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Axe Shard:</h2><br><br></center><p>Description: a fragmented piece of metal and bits of wooden handle that once was part of an axe. If three of these are melted down and combined they can be used to forge a new axe. <br><br>Scrap Value: 100 xp<br>Scrap Items: None<br><br>Equipable: no<br><br>Level: 0</p>");
+		} else if (item[x] == "bowshard" && item.length == 1) {
+			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Bow Shard:</h2><br><br></center><p>Description: a fragmented piece of wood and string that once was part of a bow. If three of these are combined they can be used to forge a new bow. <br><br>Scrap Value: 100 xp<br>Scrap Items: None<br><br>Equipable: no<br><br>Level: 0</p>");
+		} else if (item[x] == "healthcrystal" && item.length == 1) {
+			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Small Health Crystal:</h2><br><br></center><p>Description: a small crystal enchanted with healing energy. This can be used any time in battle to heal 1 health. Combine three of these magic crystals to forge an average health crystal which can restore more health.<br><br>Scrap Value: 20 xp<br>Scrap Items: None<br><br>Equipable: yes<br><br>Level: 1</p><br><h3>Actions:</h3><br><button class='useBTN' id='healthcrystal'>Use Crystal</button>");
+		} else if (item[x] == "healthcrystal2" && item.length == 1) {
+			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Health Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted with healing energy. This can be used any time in battle to heal 3 health. Combine three of these magic crystals to forge a smooth health crystal which can restore more health.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Health Crystal (1-2)<br><br>Equipable: yes<br><br>Level: 2</p><br><h3>Actions:</h3><br><button class='useBTN' id='healthcrystal2'>Use Crystal</button>");
+		} else if (item[x] == "energycrystal" && item.length == 1) {
+			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Small Energy Crystal:</h2><br><br></center><p>Description: a small crystal enchanted to restore energy upon use. This can be used any time in battle to give 10 energy. Combine three of these energy crystals to forge an average energy crystal which can restore more energy.<br><br>Scrap Value: 20 xp<br>Scrap Items: None<br><br>Equipable: yes<br><br>Level: 1</p><br><h3>Actions:</h3><br><button class='useBTN' id='energycrystal'>Use Crystal</button>");
+			x = item.length;
+		} else if (item[x] == "energycrystal2" && item.length == 1) {
+			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Energy Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted to restore energy upon use. This can be used any time in battle to give 20 energy. Combine three of these energy crystals to forge a smooth energy crystal which can restore more energy.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Energy Crystal (1-2)<br><br>Equipable: yes<br><br>Level: 2</p><br><h3>Actions:</h3><br><button class='useBTN' id='energycrystal2'>Use Crystal</button>");
+		} 
+	}
+	
+	// Use Item When Button Clicked
+	$(".useBTN").click( function () {
+		var clicked = $(this).attr("id");
+		useItem(clicked, slot);
+	});
+}
+
+function useItem(item, slot) {
+	$("#inventoryBack").remove();
+	var location = slot.replace("slot", ""); // Gets just the slot number 
+	location = parseInt(location); // Turns the number from a string to an int
+	location = location - 1; // Subtracts 1 to turn it into the index
+	
+	// Carries out Action
+	if (item == "energycrystal") {
+		Player.energy += 10;
+		alert("Your energy has been increased by 10");
+		Player.inventoryEquipped[location].splice(1, Player.inventoryEquipped[location].length);
+		updateStats(false);
+		battleInventory();
+	} else if (item == "energycrystal2") {
+		Player.energy += 20;
+		alert("Your energy has been increased by 20");
+		Player.inventoryEquipped[location].splice(1, Player.inventoryEquipped[location].length);
+		updateStats(false);
+		battleInventory();
+	} else if (item == "healthcrystal") {
+		Player.health += 1;
+		alert("Your health has been increased by 1");
+		Player.inventoryEquipped[location].splice(1, Player.inventoryEquipped[location].length);
+		updateStats(false);
+		battleInventory();	  
+	} else if (item == "healthcrystal2") {
+		Player.health += 3;
+		alert("Your health has been increased by 3");
+		Player.inventoryEquipped[location].splice(1, Player.inventoryEquipped[location].length);
+		updateStats(false);
+		battleInventory();		  
+	}
+	
 }
