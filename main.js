@@ -14,7 +14,6 @@ var disoriented = false; // Enemy stunned or not.
 
 // Player Varriables and Object
 var Player = new Object();
-
 Player.name;
 Player.class;
 Player.className;
@@ -98,7 +97,7 @@ function startGame() {
 	learnMoreBTN.hide();
 	input.show();
 	input.focus();
-	input.keypress(function (event) {
+	input.keypress(function(event) {
 		var keycode = (event.keyCode ? event.keyCode : event.which);
 		if (keycode == '13') {
 			Player.name = input.val();
@@ -513,7 +512,7 @@ function Turn() {
 	}
 	skipTurn = false;
 	$("#turnCounter").text("Turn: " + turn);
-	output.append("<div id='turnAction'><br><h3>Turn:</h3><br>" + "<br>Your Options:" + "<br>1. Attack " + "<br>2. Move " + "<br>3. Run Away " + "<br>4. Use Magic " + "<br>5. Review Enemy Stats<br><input id='action'></div>");
+	output.append("<div id='turnAction'><br><h3>Turn:</h3><br>" + "<br>Your Options:" + "<br>1. Attack " + "<br>2. Move " + "<br>3. Run Away " + "<br>4. Use Magic " + "<br>5. Review Enemy Stats<br>6. Equipped Inventory<br><input id='action'></div>");
 	$("#action").focus();
 	$("#action").blur(function() {
 		$("#action").focus();
@@ -540,7 +539,11 @@ function Turn() {
 					$("#action").remove();
 					reviewEnemy();
 					break;
-			}
+				case "6":
+					$("#action").remove();
+					battleInventory();
+					break;
+			} 
 		}
 		event.stopPropagation();
 	});
@@ -1523,13 +1526,13 @@ function inventoryPlayer() {
 		}
 		if (Player.inventoryEquipped[(slotID - 1)].length > 1) {
 			if (Player.inventoryEquipped[(slotID - 1)][1] == "energycrystal") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl1' id='" + "slot" + slotID.toString() + "'><img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>Small Energy Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>Small Energy Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1] == "energycrystal2") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl2' id='" + "slot" + slotID.toString() + "'><img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>Average Energy Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>Average Energy Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1] == "healthcrystal") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl1' id='" + "slot" + slotID.toString() + "'><img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>Small Health Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>Small Health Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1].toString() == "healthcrystal2") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl2' id='" + "slot" + slotID.toString() + "'><img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>Average Health Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>Average Health Crystal</div></td>");
 			}
 		} else {
 			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot empty' id='" + "slot" + slotID.toString() + "'><img src=''>Slot " + slotID + "</div></td>");
@@ -1546,7 +1549,8 @@ function inventoryPlayer() {
 				$('#inventoryBack').remove();
 				equipItem("empty", $(this).attr('id'));
 			} else if ($(this).hasClass('filled')) {
-				equipItem("replace");
+				$('#inventoryBack').remove();
+				equipItem("replace", $(this).attr('id'));
 			}
 		}
 	});
@@ -1648,24 +1652,24 @@ function equipItem(action, slot) {
 				if ($(this).hasClass('swordshard')) {
 					selected.push("swordshard");
 					inventoryActionUpdate(selected);
-					slotInstall(selected, slot);
+					slotInstall(selected, slot, "empty");
 				} else if ($(this).hasClass('axeshard')) {
 					selected.push("axeshard");
 					inventoryActionUpdate(selected);
-					slotInstall(selected, slot);
+					slotInstall(selected, slot, "empty");
 				} else if ($(this).hasClass('bowshard')) {
 					selected.push("bowshard");
 					inventoryActionUpdate(selected);
-					slotInstall(selected, slot);
+					slotInstall(selected, slot, "empty");
 				} else if ($(this).hasClass("healthcrystal")) {
 					if ($(this).hasClass("lvl1")) {
 						selected.push("healthcrystal");
 						inventoryActionUpdate(selected);
-						slotInstall(selected, slot);
+						slotInstall(selected, slot, "empty");
 					} else if ($(this).hasClass("lvl2")) {
 						selected.push("healthcrystal2");
 						inventoryActionUpdate(selected);
-						slotInstall(selected, slot);
+						slotInstall(selected, slot, "empty");
 					} else if ($(this).hasClass("weapon")) {
 						selected.push($(this).text());
 						inventoryActionUpdate(selected);
@@ -1674,11 +1678,11 @@ function equipItem(action, slot) {
 					if ($(this).hasClass("lvl1")) {
 						selected.push("energycrystal");
 						inventoryActionUpdate(selected);
-						slotInstall(selected, slot);
+						slotInstall(selected, slot, "empty");
 					} else if ($(this).hasClass("lvl2")) {
 						selected.push("energycrystal2");
 						inventoryActionUpdate(selected);
-						slotInstall(selected, slot);
+						slotInstall(selected, slot, "empty");
 					}
 				}
 			} else {
@@ -1690,7 +1694,7 @@ function equipItem(action, slot) {
 							selected.splice(f, 1);
 							f = selected.length;
 							inventoryActionUpdate(selected);
-							slotInstall(selected, slot);
+							slotInstall(selected, slot, "empty");
 						}
 					}
 				} else if ($(this).hasClass('axeshard')) {
@@ -1699,7 +1703,7 @@ function equipItem(action, slot) {
 							selected.splice(f, 1);
 							f = selected.length;
 							inventoryActionUpdate(selected);
-							slotInstall(selected, slot);
+							slotInstall(selected, slot, "empty");
 						}
 					}
 				} else if ($(this).hasClass('bowshard')) {
@@ -1708,7 +1712,7 @@ function equipItem(action, slot) {
 							selected.splice(f, 1);
 							f = selected.length;
 							inventoryActionUpdate(selected);
-							slotInstall(selected, slot);
+							slotInstall(selected, slot, "empty");
 						}
 					}
 				} else if ($(this).hasClass('healthcrystal')) {
@@ -1717,12 +1721,12 @@ function equipItem(action, slot) {
 							selected.splice(f, 1);
 							f = selected.length;
 							inventoryActionUpdate(selected);
-							slotInstall(selected, slot);
+							slotInstall(selected, slot, "empty");
 						} else if (selected[f] == "healthcrystal2") {
 							selected.splice(f, 1);
 							f = selected.length;
 							inventoryActionUpdate(selected);
-							slotInstall(selected, slot);
+							slotInstall(selected, slot, "empty");
 						}
 					}
 				} else if ($(this).hasClass('energycrystal')) {
@@ -1731,12 +1735,12 @@ function equipItem(action, slot) {
 							selected.splice(f, 1);
 							f = selected.length;
 							inventoryActionUpdate(selected);
-							slotInstall(selected, slot);
+							slotInstall(selected, slot, "empty");
 						} else if (selected[f] == "energycrystal2") {
 							selected.splice(f, 1);
 							f = selected.length;
 							inventoryActionUpdate(selected);
-							slotInstall(selected, slot);
+							slotInstall(selected, slot, "empty");
 						}
 					}
 				} else if ($(this).hasClass('weapon')) {
@@ -1745,18 +1749,214 @@ function equipItem(action, slot) {
 							selected.splice(f, 1);
 							f = selected.length;
 							inventoryActionUpdate(selected);
-							slotInstall(selected, slot);
+							slotInstall(selected, slot, "empty");
 						}
 					}
 				}
 			}
 		});
 	} else if (action == "replace") {
+		var slotID = 0;
+		var rowNumber = 1;
 
+		output.html("");
+		output.append("<div id='tableContainer'><table id='invTable'><thead><th>Inventory:</th></thead><tbody><tr id='tr1'></tr></tbody></table></div>");
+		$("#inventoryOpt").html("<h1>Gear:</h1><br><p style='color: black'>Select an item to equip.</p>");
+		$("#inventoryOpt").show();
+
+		for (var sShards = 0; sShards < Player.inventory[0][1][1][1].length; sShards++) {
+			slotID++;
+			if (slotID >= 5) {
+				rowNumber += 1;
+				slotID = 1;
+				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
+			}
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='http://www.clker.com/cliparts/X/T/C/n/G/z/sword-hi.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
+		}
+		for (var aShards = 0; aShards < Player.inventory[0][1][2][1].length; aShards++) {
+			slotID++;
+			if (slotID >= 5) {
+				rowNumber += 1;
+				slotID = 1;
+				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
+			}
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
+		}
+		for (var bShards = 0; bShards < Player.inventory[0][1][3][1].length; bShards++) {
+			slotID++;
+			if (slotID >= 5) {
+				rowNumber += 1;
+				slotID = 1;
+				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
+			}
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
+		}
+		for (var hCrystal = 0; hCrystal < Player.inventory[3][1][1][0].length; hCrystal++) {
+			slotID++;
+			if (slotID >= 5) {
+				rowNumber += 1;
+				slotID = 1;
+				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
+			}
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
+		}
+		for (var eCrystal = 0; eCrystal < Player.inventory[3][2][1][0].length; eCrystal++) {
+			slotID++;
+			if (slotID >= 5) {
+				rowNumber += 1;
+				slotID = 1;
+				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
+			}
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
+		}
+
+		for (var rFragment = 0; rFragment < Player.inventory[1][1][1].length; rFragment++) {
+			slotID++;
+			if (slotID >= 5) {
+				rowNumber += 1;
+				slotID = 1;
+				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
+			}
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn140.picsart.com/235000650042212.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
+		}
+
+		for (var attShard = 0; attShard < Player.inventory[2][1][1].length; attShard++) {
+			slotID++;
+			if (slotID >= 5) {
+				rowNumber += 1;
+				slotID = 1;
+				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
+			}
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='http://www.clker.com/cliparts/x/9/5/R/R/o/flame-circle-hi.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
+		}
+
+		for (var weaponSel = 0; weaponSel < Player.weaponInventory.length; weaponSel++) {
+			slotID++;
+			if (slotID >= 5) {
+				rowNumber += 1;
+				slotID = 1;
+				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
+			}
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+		}
+
+		var selected = [];
+		inventoryActionUpdate(selected);
+
+		$(".select").click(function() {
+			if ($(this).hasClass('unselected')) {
+				$(this).css("border", "1px solid blue");
+				$(this).removeClass("unselected").addClass("selected");
+				if ($(this).hasClass('swordshard')) {
+					selected.push("swordshard");
+					inventoryActionUpdate(selected);
+					slotInstall(selected, slot, "replace");
+				} else if ($(this).hasClass('axeshard')) {
+					selected.push("axeshard");
+					inventoryActionUpdate(selected);
+					slotInstall(selected, slot, "replace");
+				} else if ($(this).hasClass('bowshard')) {
+					selected.push("bowshard");
+					inventoryActionUpdate(selected);
+					slotInstall(selected, slot, "replace");
+				} else if ($(this).hasClass("healthcrystal")) {
+					if ($(this).hasClass("lvl1")) {
+						selected.push("healthcrystal");
+						inventoryActionUpdate(selected);
+						slotInstall(selected, slot, "replace");
+					} else if ($(this).hasClass("lvl2")) {
+						selected.push("healthcrystal2");
+						inventoryActionUpdate(selected);
+						slotInstall(selected, slot, "replace");
+					} else if ($(this).hasClass("weapon")) {
+						selected.push($(this).text());
+						inventoryActionUpdate(selected);
+					}
+				} else if ($(this).hasClass("energycrystal")) {
+					if ($(this).hasClass("lvl1")) {
+						selected.push("energycrystal");
+						inventoryActionUpdate(selected);
+						slotInstall(selected, slot, "replace");
+					} else if ($(this).hasClass("lvl2")) {
+						selected.push("energycrystal2");
+						inventoryActionUpdate(selected);
+						slotInstall(selected, slot, "replace");
+					}
+				}
+			} else {
+				$(this).css("border", "1px solid white");
+				$(this).removeClass("selected").addClass("unselected");
+				if ($(this).hasClass('swordshard')) {
+					for (var f = 0; f < selected.length; f++) {
+						if (selected[f] == "swordshard") {
+							selected.splice(f, 1);
+							f = selected.length;
+							inventoryActionUpdate(selected);
+							slotInstall(selected, slot, "replace");
+						}
+					}
+				} else if ($(this).hasClass('axeshard')) {
+					for (var f = 0; f < selected.length; f++) {
+						if (selected[f] == "axeshard") {
+							selected.splice(f, 1);
+							f = selected.length;
+							inventoryActionUpdate(selected);
+							slotInstall(selected, slot, "replace");
+						}
+					}
+				} else if ($(this).hasClass('bowshard')) {
+					for (var f = 0; f < selected.length; f++) {
+						if (selected[f] == "bowshard") {
+							selected.splice(f, 1);
+							f = selected.length;
+							inventoryActionUpdate(selected);
+							slotInstall(selected, slot, "replace");
+						}
+					}
+				} else if ($(this).hasClass('healthcrystal')) {
+					for (var f = 0; f < selected.length; f++) {
+						if (selected[f] == "healthcrystal") {
+							selected.splice(f, 1);
+							f = selected.length;
+							inventoryActionUpdate(selected);
+							slotInstall(selected, slot, "replace");
+						} else if (selected[f] == "healthcrystal2") {
+							selected.splice(f, 1);
+							f = selected.length;
+							inventoryActionUpdate(selected);
+							slotInstall(selected, slot, "replace");
+						}
+					}
+				} else if ($(this).hasClass('energycrystal')) {
+					for (var f = 0; f < selected.length; f++) {
+						if (selected[f] == "energycrystal") {
+							selected.splice(f, 1);
+							f = selected.length;
+							inventoryActionUpdate(selected);
+							slotInstall(selected, slot, "replace");
+						} else if (selected[f] == "energycrystal2") {
+							selected.splice(f, 1);
+							f = selected.length;
+							inventoryActionUpdate(selected);
+							slotInstall(selected, slot, "replace");
+						}
+					}
+				} else if ($(this).hasClass('weapon')) {
+					for (var f = 0; f < selected.length; f++) {
+						if (selected[f] == $(this).text()) {
+							selected.splice(f, 1);
+							f = selected.length;
+							inventoryActionUpdate(selected);
+							slotInstall(selected, slot, "replace");
+						}
+					}
+				}
+			}
+		});
 	}
 }
 
-function slotInstall(item, slot) {
+function slotInstall(item, slot, action) {
 	if (item.length > 1) {
 		$("#inventoryOpt").html("<h1>Gear:</h1><br><p style='color: red'>Please only select one item.</p>");
 	} else if (item.length == 1) {
@@ -1764,9 +1964,10 @@ function slotInstall(item, slot) {
 	} else {
 		$("#inventoryOpt").html("<h1>Gear:</h1><br><p style='color: black'>Select an item to equip.</p>");
 	}
-
-	$("#eqConfirm").click(function() {
-		var location = slot.replace("slot", "");
+	
+	var location = slot.replace("slot", "");
+	if (action == "empty") {
+		$("#eqConfirm").click(function() {
 		location = parseInt(location);
 		location = location - 1;
 		Player.inventoryEquipped[location].push(item);
@@ -1803,9 +2004,54 @@ function slotInstall(item, slot) {
 				}
 			}
 		} 
-
+		
+		$("#eqConfirm").remove();
 		inventoryPlayer();
 	});
+	} else if (action == "replace") {
+		$("#eqConfirm").click(function() {
+		location = parseInt(location);
+		location = location - 1;
+		Player.inventoryEquipped[location].splice(1, Player.inventoryEquipped[location].length);
+		Player.inventoryEquipped[location].push(item);
+		if (item == "energycrystal") {
+			for (var f = 0; f < Player.inventory[3][2][1][0].length; f++) {
+				if (Player.inventory[3][2][1][0][f] == "Small Energy Crystal") {
+					Player.inventory[3][2][1][0].splice(f, 1);
+					Player.inventory[3][2][1][1].splice(f, 1);
+					f = Player.inventory[3][2][1][0].length;
+				}
+			}
+		} else if (item == "energycrystal2") {
+			for (var f = 0; f < Player.inventory[3][2][1][0].length; f++) {
+				if (Player.inventory[3][2][1][0][f] == "Average Energy Crystal") {
+					Player.inventory[3][2][1][0].splice(f, 1);
+					Player.inventory[3][2][1][1].splice(f, 1);
+					f = Player.inventory[3][2][1][0].length;
+				}
+			}
+		} else if (item == "healthcrystal") {
+			for (var f = 0; f < Player.inventory[3][1][1][0].length; f++) {
+				if (Player.inventory[3][1][1][0][f] == "Small Health Crystal") {
+					Player.inventory[3][1][1][0].splice(f, 1);
+					Player.inventory[3][1][1][1].splice(f, 1);
+					f = Player.inventory[3][1][1][0].length;
+				} 
+			}
+		} else if (item == "healthcrystal2") {
+			for (var f = 0; f < Player.inventory[3][1][1][0].length; f++) {
+				if (Player.inventory[3][1][1][0][f] == "Average Health Crystal") {
+					Player.inventory[3][1][1][0].splice(f, 1);
+					Player.inventory[3][1][1][1].splice(f, 1);
+					f = Player.inventory[3][1][1][0].length;
+				}
+			}
+		} 
+	
+		$("#eqConfirm").remove();
+		inventoryPlayer();
+	});
+	}
 }
 
 function equipWeapon(weapon) {
@@ -1889,4 +2135,65 @@ function equipWeapon(weapon) {
 			}
 		}
 	}
+}
+
+// The equiped items the player can access during battle.
+function battleInventory() {
+	$("#inventoryOpt").show();
+	$("#inventoryOpt").html("<h1>Select An Item:</h1><br><p>Select an equipped item to see actions.</p>");
+	var rowNumber = 1;
+	var slotID = 0;
+	output.html("");
+	output.append("<div id='tableContainer'><table id='invTable'><thead><th>Inventory:</th></thead><tbody><tr id='tr1'></tr></tbody></table></div>");
+	
+	// Back Function
+	$("#bottombar").append("<button id='inventoryBack'>Back</button>");
+	$("#inventoryBack").click(function() {
+		$('#inventoryBack').remove();
+		$("#inventoryOpt").hide();
+		output.html("");
+		output.css("width", "75%");
+		skipTurn = true;
+		Turn();
+	});
+	
+	for (var invslots = 0; invslots < Player.inventoryEquipped.length; invslots++) {
+		slotID++;
+		if (slotID >= 5) {
+			rowNumber += 1;
+			slotID = 1;
+			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
+		}
+		if (Player.inventoryEquipped[(slotID - 1)].length > 1) {
+			if (Player.inventoryEquipped[(slotID - 1)][1] == "energycrystal") {
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>Small Energy Crystal</div></td>");
+			} else if (Player.inventoryEquipped[(slotID - 1)][1] == "energycrystal2") {
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>Average Energy Crystal</div></td>");
+			} else if (Player.inventoryEquipped[(slotID - 1)][1] == "healthcrystal") {
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl1 flilled' id='" + "slot" + slotID.toString() + "'><img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>Small Health Crystal</div></td>");
+			} else if (Player.inventoryEquipped[(slotID - 1)][1].toString() == "healthcrystal2") {
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>Average Health Crystal</div></td>");
+			}
+		} else {
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot empty' id='" + "slot" + slotID.toString() + "'><img src=''>Slot " + slotID + "</div></td>");
+		}
+	}
+
+	var selected = [];
+	inventoryActionUpdate(selected);
+
+	$(".select").click(function() {
+		if ($(this).hasClass('unselected')) {
+			$(this).removeClass("unselected").addClass("selected");
+			$(this).css("border", "1px solid blue");
+			battleInventoryAction(selected);
+		} else {
+			$(this).removeClass("selected").addClass("unselected");
+			$(this).css("border", "1px solid white");
+		}
+	});
+}
+
+function battleInventoryAction(item) {
+	// Give options for each item
 }
