@@ -1,15 +1,17 @@
 // JavaScript File for Risbane:
-
+// V.0.3.9
 
 // Main Global Varriables
+
 var output = $("#output");
 var mainOutput = $("#outText");
 var startBTN = $("#startBTN");
 var learnMoreBTN = $("#learnMoreBTN");
-var input = $("#mainInput");
-var battle = 0;
-var turn = 0;
-var skipTurn = false;
+var input = $("#mainInput"); 
+
+var battle = 0; // Keeps track of the battle you are on
+var turn = 0; // Keeps track of the turn you are on
+var skipTurn = false; // If it skips the enemy turn on certain actions. Ex: (Check The Enemy Stats)
 var disoriented = false; // Enemy stunned or not.
 
 // Player Varriables and Object
@@ -65,6 +67,8 @@ var distanceGuess;
 var speedGuess;
 var hpGuess;
 
+
+// Weapon Object
 function Weapon(name, type, baseDamage, fireDamage, iceDamage, poisonDamage, level, attributeSlots, attributes) {
 	this.name = name;
 	this.type = type;
@@ -75,10 +79,11 @@ function Weapon(name, type, baseDamage, fireDamage, iceDamage, poisonDamage, lev
 	this.weaponLevel = level;
 	this.attributeSlots = attributeSlots;
 	this.attributes = attributes;
-	// Add Range
+	// DEV NOTE Add Range
+	// DEV NOTE Add Proc/Crit and Puncture?
 }
 
-
+// Initiate Game
 $(document).ready(function() {
 	input.hide();
 	$("#inventoryOpt").hide();
@@ -88,9 +93,10 @@ $(document).ready(function() {
 function learnMore() {
 	startBTN.hide();
 	learnMoreBTN.hide();
-	mainOutput.html("this currently is not working");
+	mainOutput.html("this currently is not working"); // Info about how to play the game and what it is
 }
 
+// Begins the game
 function startGame() {
 	mainOutput.html("Please Enter Your Name:");
 	startBTN.hide();
