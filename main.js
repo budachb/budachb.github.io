@@ -1,3 +1,6 @@
+// JavaScript File for Risbane:
+
+
 // Main Global Varriables
 var output = $("#output");
 var mainOutput = $("#outText");
@@ -9,7 +12,7 @@ var turn = 0;
 var skipTurn = false;
 var disoriented = false; // Enemy stunned or not.
 
-// Player Varriables
+// Player Varriables and Object
 var Player = new Object();
 Player.name;
 Player.class;

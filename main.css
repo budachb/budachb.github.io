@@ -1,5 +1,16 @@
+/* Risbane CSS File */
+
+/* Global Varriables and Fonts */
 @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
 
+/*__________*/
+
+
+
+/* _CSS Styles_ */
+
+
+/* Main Styles */
 body, html {
 	padding: 0px;
 	margin: 0px;
@@ -338,49 +349,6 @@ topbar p {
 	display: none;
 }
 
-.energycrystal.lvl1 {
-	background-color: #303030;
-}
-
-.energycrystal.lvl2 {
-	background-color: #9b870c;
-}
-
-.healthcrystal.lvl1 {
-	background-color: #303030;
-}
-
-.healthcrystal.lvl2 {
-	background-color: darkblue;
-}
-
-.weapon.lvl0 {
-	background-color: black;
-}
-
-.weapon.lvl1 {
-	background-color: #101010;
-}
-
-.weapon.lvl1.poison {
-	background-color: #013220;
-}
-
-.weapon.lvl1.fire {
-	background-color: #ff8c00;
-}
-
-.weapon.lvl1.ice {
-	background-color: #00003f;
-}
-
-.rarity1 {
-	color: black;
-}
-
-.rarity2 {
-	color: darkblue;
-}
 
 #numXP {
 	position: absolute;
@@ -428,7 +396,58 @@ topbar p {
 	display: inline;
 }
 
-/* Damage type colors */
+/*______________*/
+
+
+/* Colors for Item Rarity's */
+.energycrystal.lvl1 {
+	background-color: #303030;
+}
+
+.energycrystal.lvl2 {
+	background-color: #9b870c;
+}
+
+.healthcrystal.lvl1 {
+	background-color: #303030;
+}
+
+.healthcrystal.lvl2 {
+	background-color: darkblue;
+}
+
+.weapon.lvl0 {
+	background-color: black;
+}
+
+.weapon.lvl1 {
+	background-color: #101010;
+}
+
+.weapon.lvl1.poison {
+	background-color: #013220;
+}
+
+.weapon.lvl1.fire {
+	background-color: #ff8c00;
+}
+
+.weapon.lvl1.ice {
+	background-color: #00003f;
+}
+
+.rarity1 {
+	color: black;
+}
+
+.rarity2 {
+	color: darkblue;
+}
+
+/*____________*/
+
+
+/* Damage type Colors */
 
 #d_fire {
 	color: #CC6600; 
@@ -460,3 +479,5 @@ topbar p {
 	padding: 0px;
 	display: inline;
 }
+
+/*______*/
