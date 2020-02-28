@@ -14,6 +14,7 @@ var disoriented = false; // Enemy stunned or not.
 
 // Player Varriables and Object
 var Player = new Object();
+
 Player.name;
 Player.class;
 Player.className;
@@ -97,7 +98,7 @@ function startGame() {
 	learnMoreBTN.hide();
 	input.show();
 	input.focus();
-	input.keypress(function(event) {
+	input.keypress(function (event) {
 		var keycode = (event.keyCode ? event.keyCode : event.which);
 		if (keycode == '13') {
 			Player.name = input.val();
