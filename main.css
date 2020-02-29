@@ -71,10 +71,6 @@ body, html {
 	overflow-y: scroll;
 }
 
-output p {
-    font-size: 2em;
-}
-
 #sidebar {
 	border: 1px solid black;
 	background-color: #808080;
