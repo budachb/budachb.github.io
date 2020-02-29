@@ -61,13 +61,14 @@ body, html {
 	background-color: #808080;
 	width: 65%;
 	height: 75%;
-   margin: auto;
+    margin: auto;
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	padding: 10px;
 	font-family: 'Ubuntu', sans-serif;
 	font-weight: bold;
+    font-size: 1rem;
 	overflow-y: scroll;
 }
 
