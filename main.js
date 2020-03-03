@@ -88,9 +88,6 @@ $(document).ready(function() {
 	input.hide();
 	$("#inventoryOpt").hide();
 	mainOutput.html("Hello and welcome to Risbane! <br>To begin the game, click start, to learn more about how to play click learn more.");
-    
-    // Preload Images
-    output.append("<img class='preload' src='sword.png'><img class='preload' src='sword_shard.png'><img class='preload' src='healthcrystal.png'><img class='preload' src='energycrystal.png'><img class='preload' src='bow_shard.png'><img class='preload' src='axe_shard.png'><img class='preload' src='rune_fragment.png'><img class='preload' src='attribute_shard.png'>");
 });
 
 function learnMore() {
