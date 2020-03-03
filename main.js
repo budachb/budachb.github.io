@@ -1552,15 +1552,59 @@ function inventoryPlayer() {
 	inventoryActionUpdate(selected);
 
 	$(".select").click(function() {
-		if ($(this).hasClass('unselected')) {
+		selected.push("slot");
+		if (selected.length == 1) {
+			if ($(this).hasClass('unselected')) {
 			$(this).removeClass("unselected").addClass("selected");
+			$(this).css("border", "1px solid blue");
 			if ($(this).hasClass('empty')) {
-				$('#inventoryBack').remove();
-				equipItem("empty", $(this).attr('id'));
+				var slot = $(this).attr('id');
+				$("#inventoryOpt").html("<h1>Slot " + slot + "</h1><br><p>Inventory slot where you can equip items you can use mid battle.</p><br><button id='equipButton'>Equip</button><br><button id='unequipButton'>Unequip</button>");
+				$("#equipButton").click( function () {
+					$(this).removeClass("selected").addClass("unselected");
+					$(this).css("border", "1px solid white");
+        	      $('#inventoryBack').remove();
+               $("#inventoryOpt").html("");
+					equipItem("empty", slot);    
+            });
+				$("#unequipButton").click( function () {
+					$(this).removeClass("selected").addClass("unselected");
+					$(this).css("border", "1px solid white");
+        	      $('#inventoryBack').remove();
+               $("#inventoryOpt").html("");
+					unequipItem("empty", slot);    
+            });
 			} else if ($(this).hasClass('filled')) {
-				$('#inventoryBack').remove();
-				equipItem("replace", $(this).attr('id'));
+				var slot = $(this).attr('id');
+				$("#inventoryOpt").html("<h1>Slot " + slot + "</h1><br><p>Inventory slot where you can equip items you can use mid battle.</p><br><button id='equipButton'>Equip</button><br><button id='unequipButton'>Unequip</button>");
+				$("#equipButton").click( function () {
+        	      $('#inventoryBack').remove();
+					$(this).removeClass("selected").addClass("unselected");
+				$(this).css("border", "1px solid white");
+               $("#inventoryOpt").html("");
+					equipItem("replace", slot);
+            });
+				$("#unequipButton").click( function () {
+        	      $('#inventoryBack').remove();
+					$(this).removeClass("selected").addClass("unselected");
+					$(this).css("border", "1px solid white");
+               $("#inventoryOpt").html("");
+					unequipItem("filled", slot);    
+            });
 			}
+		} else {
+			$(this).removeClass("selected").addClass("unselected");
+			$(this).css("border", "1px solid white");
+			$("#inventoryOpt").html("");
+		}
+		} else if (selected.length > 1) {
+			$(".select").each( function() {
+				$('#inventoryBack').remove();
+				$(this).removeClass("selected").addClass("unselected");
+				$(this).css("border", "1px solid white");
+				$("#inventoryOpt").html("");
+				inventoryPlayer();
+			});
 		}
 	});
 }
@@ -2382,4 +2426,34 @@ function useItem(item, slot) {
 		battleInventory();		  
 	}
 	
+}
+
+function unequipItem(action, slot) {
+	slot = slot.replace(/[a-z]/g, "");
+	slot = parseInt(slot);
+	slot = slot-1;
+	
+	if (action == "empty") {
+		alert("There is no item to unequip.");
+		inventoryPlayer();
+	} else if (action == "filled") {
+		var item = Player.inventoryEquipped[slot][1];
+		
+		if (item == "energycrystal") {
+			Player.inventory[3][2][1][0].push("Small Energy Crystal");
+			Player.inventory[3][2][1][1].push(1);
+		} else if (item == "energycrystal2") {
+			Player.inventory[3][2][1][0].push("Average Energy Crystal");
+			Player.inventory[3][2][1][1].push(2);
+		} else if (item == "healthcrystal") {
+			Player.inventory[3][1][1][0].push("Small Health Crystal");
+			Player.inventory[3][1][1][1].push(1);
+		} else if (item == "healthcrystal2") {
+			Player.inventory[3][1][1][0].push("Average Health Crystal");
+			Player.inventory[3][1][1][1].push(2);
+		}
+		
+		Player.inventoryEquipped[slot].splice(1, Player.inventoryEquipped[slot].length);
+		inventoryPlayer();
+	}
 }
