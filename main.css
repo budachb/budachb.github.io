@@ -482,3 +482,9 @@ topbar p {
 }
 
 /*______*/
+
+/* Preload images */
+
+.preload {
+    display: none;
+}
