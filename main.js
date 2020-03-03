@@ -350,13 +350,13 @@ function updateStats(start) {
 	$("#sidebar").html("<div id='pstat'><h3>Player Stats:</h3><br>" + "Name: " + Player.name + "<br>Class: " + Player.className + "<br>Intelligence: " + Player.intelligence + "<br>Luck: " + Player.luck + "<br>Speed: " + Player.speed + "<br>Defense: " + Player.defense + "<br>Health: " + Math.round(Player.health) + "<br>Energy: " + Player.energy + "<br>Energy Regen: " + Player.energyRegen + "<br>Ofensive Power Name: " + Player.offensivePowerName + "<br>Offensive Power Cost: " + Player.offensivePowerCost + "<br>Defensive Power Name: " + Player.defensivePowerName + "<br>Defensive Power Cost: " + Player.defensivePowerCost + "<br>");
 	
 	if (Player.currentWeapon.fireDamage > 0 && Player.currentWeapon.iceDamage == 0 && Player.currentWeapon.poisonDamage == 0) {
-			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon fire lvl" + Player.currentWeapon.weaponLevel + "' src='http://www.clker.com/cliparts/X/T/C/n/G/z/sword-hi.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
+			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon fire lvl" + Player.currentWeapon.weaponLevel + "' src='sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
 		} else if (Player.currentWeapon.iceDamage > 0 && Player.currentWeapon.fireDamage == 0 && Player.currentWeapon.poisonDamage == 0) {
-			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon ice lvl" + Player.currentWeapon.weaponLevel + "' src='http://www.clker.com/cliparts/X/T/C/n/G/z/sword-hi.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
+			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon ice lvl" + Player.currentWeapon.weaponLevel + "' src='sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
 		} else if (Player.currentWeapon.poisonDamage > 0 && Player.currentWeapon.iceDamage == 0 && Player.currentWeapon.fireDamage == 0) {
-			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon poison lvl" + Player.currentWeapon.weaponLevel + "' src='http://www.clker.com/cliparts/X/T/C/n/G/z/sword-hi.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
+			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon poison lvl" + Player.currentWeapon.weaponLevel + "' src='sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
 		} else {
-			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon lvl" + Player.currentWeapon.weaponLevel + "' src='http://www.clker.com/cliparts/X/T/C/n/G/z/sword-hi.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
+			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon lvl" + Player.currentWeapon.weaponLevel + "' src='sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
 		}
 	
 		
@@ -751,7 +751,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='http://www.clker.com/cliparts/X/T/C/n/G/z/sword-hi.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
 	}
 	for (var aShards = 0; aShards < Player.inventory[0][1][2][1].length; aShards++) {
 		slotID++;
@@ -760,7 +760,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='axe_shard.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
 	}
 	for (var bShards = 0; bShards < Player.inventory[0][1][3][1].length; bShards++) {
 		slotID++;
@@ -769,7 +769,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='bow_shard.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
 	}
 	for (var hCrystal = 0; hCrystal < Player.inventory[3][1][1][0].length; hCrystal++) {
 		slotID++;
@@ -797,7 +797,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn140.picsart.com/235000650042212.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='rune_fragment.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
 	}
 
 	for (var attShard = 0; attShard < Player.inventory[2][1][1].length; attShard++) {
@@ -807,7 +807,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='http://www.clker.com/cliparts/x/9/5/R/R/o/flame-circle-hi.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='attribute_shard.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
 	}
 
 	for (var weaponSel = 0; weaponSel < Player.weaponInventory.length; weaponSel++) {
@@ -818,13 +818,13 @@ function inventoryPage() {
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
 		if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		} else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		} else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		} else {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		}
 	}
 
@@ -1582,7 +1582,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='http://www.clker.com/cliparts/X/T/C/n/G/z/sword-hi.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
 		}
 		for (var aShards = 0; aShards < Player.inventory[0][1][2][1].length; aShards++) {
 			slotID++;
@@ -1591,7 +1591,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='axe_shard.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
 		}
 		for (var bShards = 0; bShards < Player.inventory[0][1][3][1].length; bShards++) {
 			slotID++;
@@ -1600,7 +1600,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='bow_shard.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
 		}
 		for (var hCrystal = 0; hCrystal < Player.inventory[3][1][1][0].length; hCrystal++) {
 			slotID++;
@@ -1628,7 +1628,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn140.picsart.com/235000650042212.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='rune_fragment.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
 		}
 
 		for (var attShard = 0; attShard < Player.inventory[2][1][1].length; attShard++) {
@@ -1638,7 +1638,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='http://www.clker.com/cliparts/x/9/5/R/R/o/flame-circle-hi.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='attribute_shard.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
 		}
 
 		for (var weaponSel = 0; weaponSel < Player.weaponInventory.length; weaponSel++) {
@@ -1648,7 +1648,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		}
 
 		var selected = [];
@@ -1780,7 +1780,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='http://www.clker.com/cliparts/X/T/C/n/G/z/sword-hi.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
 		}
 		for (var aShards = 0; aShards < Player.inventory[0][1][2][1].length; aShards++) {
 			slotID++;
@@ -1789,7 +1789,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='axe_shard.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
 		}
 		for (var bShards = 0; bShards < Player.inventory[0][1][3][1].length; bShards++) {
 			slotID++;
@@ -1798,7 +1798,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='bow_shard.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
 		}
 		for (var hCrystal = 0; hCrystal < Player.inventory[3][1][1][0].length; hCrystal++) {
 			slotID++;
@@ -1826,7 +1826,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn140.picsart.com/235000650042212.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='rune_fragment.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
 		}
 
 		for (var attShard = 0; attShard < Player.inventory[2][1][1].length; attShard++) {
@@ -1836,7 +1836,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='http://www.clker.com/cliparts/x/9/5/R/R/o/flame-circle-hi.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='attribute_shard.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
 		}
 
 		for (var weaponSel = 0; weaponSel < Player.weaponInventory.length; weaponSel++) {
@@ -1846,7 +1846,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		}
 
 		var selected = [];
@@ -2104,13 +2104,13 @@ function equipWeapon(weapon) {
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
 			if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		} else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		} else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		} else {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		}
 		}
 
