@@ -778,7 +778,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='healthcrystal.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
 	}
 	for (var eCrystal = 0; eCrystal < Player.inventory[3][2][1][0].length; eCrystal++) {
 		slotID++;
@@ -787,7 +787,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='energycrystal.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
 	}
 
 	for (var rFragment = 0; rFragment < Player.inventory[1][1][1].length; rFragment++) {
@@ -1535,13 +1535,13 @@ function inventoryPlayer() {
 		}
 		if (Player.inventoryEquipped[(slotID - 1)].length > 1) {
 			if (Player.inventoryEquipped[(slotID - 1)][1] == "energycrystal") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>Small Energy Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='energycrystal.png'>Small Energy Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1] == "energycrystal2") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>Average Energy Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='energycrystal.png'>Average Energy Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1] == "healthcrystal") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>Small Health Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='healthcrystal.png'>Small Health Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1].toString() == "healthcrystal2") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>Average Health Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='healthcrystal.png'>Average Health Crystal</div></td>");
 			}
 		} else {
 			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot empty' id='" + "slot" + slotID.toString() + "'><img src=''>Slot " + slotID + "</div></td>");
@@ -1609,7 +1609,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='healthcrystal.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
 		}
 		for (var eCrystal = 0; eCrystal < Player.inventory[3][2][1][0].length; eCrystal++) {
 			slotID++;
@@ -1618,7 +1618,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='energycrystal.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
 		}
 
 		for (var rFragment = 0; rFragment < Player.inventory[1][1][1].length; rFragment++) {
@@ -1807,7 +1807,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='healthcrystal.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
 		}
 		for (var eCrystal = 0; eCrystal < Player.inventory[3][2][1][0].length; eCrystal++) {
 			slotID++;
@@ -1816,7 +1816,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='energycrystal.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
 		}
 
 		for (var rFragment = 0; rFragment < Player.inventory[1][1][1].length; rFragment++) {
@@ -2195,13 +2195,13 @@ function battleInventory() {
 		}
 		if (Player.inventoryEquipped[(slotID - 1)].length > 1) {
 			if (Player.inventoryEquipped[(slotID - 1)][1] == "energycrystal") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>Small Energy Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='energycrystal.png'>Small Energy Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1] == "energycrystal2") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='https://cdn1.iconfinder.com/data/icons/crystal-1/60/blue_crystal-512.png'>Average Energy Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='energycrystal.png'>Average Energy Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1] == "healthcrystal") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl1 flilled' id='" + "slot" + slotID.toString() + "'><img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>Small Health Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl1 flilled' id='" + "slot" + slotID.toString() + "'><img src='healthcrystal.png'>Small Health Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1].toString() == "healthcrystal2") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='https://library.kissclipart.com/20180830/lew/kissclipart-ruby-stone-icon-clipart-ruby-gemstone-computer-ico-5e3089dd20d07d7d.png'>Average Health Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='healthcrystal.png'>Average Health Crystal</div></td>");
 			}
 		} else {
 			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot empty' id='" + "slot" + slotID.toString() + "'><img src=''>Slot " + slotID + "</div></td>");
