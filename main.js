@@ -1063,11 +1063,11 @@ function inventoryActionUpdate(selected) {
 		} else if (selected[item] == "healthcrystal" && selected.length == 1) {
 			$("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Small Health Crystal:</h2><br><br></center><p>Description: a small crystal enchanted with healing energy. This can be used any time in battle to heal 1 health. Combine three of these magic crystals to forge an average health crystal which can restore more health.<br><br>Scrap Value: 20 xp<br>Scrap Items: None<br><br>Equipable: yes<br><br>Level: 1</p>");
 		} else if (selected[item] == "healthcrystal2" && selected.length == 1) {
-			$("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Health Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted with healing energy. This can be used any time in battle to heal 3 health. Combine three of these magic crystals to forge a smooth health crystal which can restore more health.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Health Crystal (1-2)<br><br>Equipable: yes<br><br>Level: 2</p>");
+			$("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Health Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted with healing energy. This can be used any time in battle to heal 5 health. Combine three of these magic crystals to forge a smooth health crystal which can restore more health.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Health Crystal (1-2)<br><br>Equipable: yes<br><br>Level: 2</p>");
 		} else if (selected[item] == "energycrystal" && selected.length == 1) {
-			$("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Small Energy Crystal:</h2><br><br></center><p>Description: a small crystal enchanted to restore energy upon use. This can be used any time in battle to give 10 energy. Combine three of these energy crystals to forge an average energy crystal which can restore more energy.<br><br>Scrap Value: 20 xp<br>Scrap Items: None<br><br>Equipable: yes<br><br>Level: 1</p>");
+			$("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Small Energy Crystal:</h2><br><br></center><p>Description: a small crystal enchanted to restore energy upon use. This can be used any time in battle to give 5 energy. Combine three of these energy crystals to forge an average energy crystal which can restore more energy.<br><br>Scrap Value: 20 xp<br>Scrap Items: None<br><br>Equipable: yes<br><br>Level: 1</p>");
 		} else if (selected[item] == "energycrystal2" && selected.length == 1) {
-			$("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Energy Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted to restore energy upon use. This can be used any time in battle to give 20 energy. Combine three of these energy crystals to forge a smooth energy crystal which can restore more energy.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Energy Crystal (1-2)<br><br>Equipable: yes<br><br>Level: 2</p>");
+			$("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Energy Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted to restore energy upon use. This can be used any time in battle to give 20 energy. Combine three of these energy crystals to forge a smooth energy crystal which can restore more energy.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Energy Crystal (1-3)<br><br>Equipable: yes<br><br>Level: 2</p>");
 		} else if (selected.length == 1) {
 			for (var weps = 0; weps < Player.weaponInventory.length; weps++) {
 				var name = selected[item].replace(/[0-9]/g, '').trim();
@@ -2326,9 +2326,9 @@ function battleInventoryAction(item, slot) {
 		} else if (item[x] == "healthcrystal" && item.length == 1) {
 			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Small Health Crystal:</h2><br><br></center><p>Description: a small crystal enchanted with healing energy. This can be used any time in battle to heal 1 health. Combine three of these magic crystals to forge an average health crystal which can restore more health.<br><br>Scrap Value: 20 xp<br>Scrap Items: None<br><br>Equipable: yes<br><br>Level: 1</p><br><h3 style='margin-left: 10px;'>Actions:</h3><br><button class='useBTN' id='healthcrystal'>Use Crystal</button>");
 		} else if (item[x] == "healthcrystal2" && item.length == 1) {
-			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Health Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted with healing energy. This can be used any time in battle to heal 3 health. Combine three of these magic crystals to forge a smooth health crystal which can restore more health.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Health Crystal (1-2)<br><br>Equipable: yes<br><br>Level: 2</p><br><h3 style='margin-left: 10px;'>Actions:</h3><br><button class='useBTN' id='healthcrystal2'>Use Crystal</button>");
+			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Health Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted with healing energy. This can be used any time in battle to heal 5 health. Combine three of these magic crystals to forge a smooth health crystal which can restore more health.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Health Crystal (1-2)<br><br>Equipable: yes<br><br>Level: 2</p><br><h3 style='margin-left: 10px;'>Actions:</h3><br><button class='useBTN' id='healthcrystal2'>Use Crystal</button>");
 		} else if (item[x] == "energycrystal" && item.length == 1) {
-			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Small Energy Crystal:</h2><br><br></center><p>Description: a small crystal enchanted to restore energy upon use. This can be used any time in battle to give 10 energy. Combine three of these energy crystals to forge an average energy crystal which can restore more energy.<br><br>Scrap Value: 20 xp<br>Scrap Items: None<br><br>Equipable: yes<br><br>Level: 1</p><br><h3 style='margin-left: 10px;'>Actions:</h3><br><button class='useBTN' id='energycrystal'>Use Crystal</button>");
+			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Small Energy Crystal:</h2><br><br></center><p>Description: a small crystal enchanted to restore energy upon use. This can be used any time in battle to give 5 energy. Combine three of these energy crystals to forge an average energy crystal which can restore more energy.<br><br>Scrap Value: 20 xp<br>Scrap Items: None<br><br>Equipable: yes<br><br>Level: 1</p><br><h3 style='margin-left: 10px;'>Actions:</h3><br><button class='useBTN' id='energycrystal'>Use Crystal</button>");
 			x = item.length;
 		} else if (item[x] == "energycrystal2" && item.length == 1) {
 			$("#inventoryOpt").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Energy Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted to restore energy upon use. This can be used any time in battle to give 20 energy. Combine three of these energy crystals to forge a smooth energy crystal which can restore more energy.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Energy Crystal (1-2)<br><br>Equipable: yes<br><br>Level: 2</p><br><h3 style='margin-left: 10px;'>Actions:</h3><br><button class='useBTN' id='energycrystal2'>Use Crystal</button>");
@@ -2350,8 +2350,8 @@ function useItem(item, slot) {
 	
 	// Carries out Action
 	if (item == "energycrystal") {
-		Player.energy += 10;
-		alert("Your energy has been increased by 10");
+		Player.energy += 5;
+		alert("Your energy has been increased by 5");
 		Player.inventoryEquipped[location].splice(1, Player.inventoryEquipped[location].length);
 		updateStats(false);
 		battleInventory();
@@ -2368,8 +2368,8 @@ function useItem(item, slot) {
 		updateStats(false);
 		battleInventory();	  
 	} else if (item == "healthcrystal2") {
-		Player.health += 3;
-		alert("Your health has been increased by 3");
+		Player.health += 5;
+		alert("Your health has been increased by 5");
 		Player.inventoryEquipped[location].splice(1, Player.inventoryEquipped[location].length);
 		updateStats(false);
 		battleInventory();		  
