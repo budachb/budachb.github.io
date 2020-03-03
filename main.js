@@ -1566,6 +1566,12 @@ function inventoryPlayer() {
 }
 
 function equipItem(action, slot) {
+    $("#bottombar").append("<button id='inventoryBack'>Back</button>");
+	$("#inventoryBack").click(function() {
+		$('#inventoryBack').remove();
+		inventoryPlayer();
+	});
+    
 	if (action == "empty") {
 		var slotID = 0;
 		var rowNumber = 1;
@@ -1966,6 +1972,7 @@ function equipItem(action, slot) {
 }
 
 function slotInstall(item, slot, action) {
+    $('#inventoryBack').remove();
 	if (item.length > 1) {
 		$("#inventoryOpt").html("<h1>Gear:</h1><br><p style='color: red'>Please only select one item.</p>");
 	} else if (item.length == 1) {
