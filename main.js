@@ -406,13 +406,13 @@ function Battle() {
 		enemyStatPointValue = Math.floor(Math.random() * 2 + 1);
 		enemyAbilities = "none";
 		enemyDrops = [
-			["Sword Shard", 1, 0.3, "ss"],
-			["Bow Shard", 1, 0.3, "bs"],
-			["Axe Shard", 1, 0.3, "axs"],
-			["Rune Fragment", 1, 0.2, "rf"],
-			["Attribute Shard", 1, 0.2, "as"],
-			["Small Health Crystal", 1, 0.8, "hc"],
-			["Small Energy Crystal", 1, 0.8, "ec"]
+			["Sword Shard", 1, 0.2, "ss"],
+			["Bow Shard", 1, 0.2, "bs"],
+			["Axe Shard", 1, 0.2, "axs"],
+			["Rune Fragment", 1, 0.1, "rf"],
+			["Attribute Shard", 1, 0.1, "as"],
+			["Small Health Crystal", 1, 0.3, "hc"],
+			["Small Energy Crystal", 1, 0.3, "ec"]
 		];
 	} else if (battle > 10 && battle <= 20) {
 		enemyLevel = 2;
@@ -430,14 +430,14 @@ function Battle() {
 		enemyStatPointValue = Math.floor(Math.random() * 2 + 1);
 		enemyAbilities = "none";
 		enemyDrops = [
-			["Sword Shard", 1, 0.5, "ss"],
+			["Sword Shard", 1, 0.3, "ss"],
 			["Fine Sword Shard", 2, 0.3, "ss"],
 			["Bow Shard", 1, 0.3, "bs"],
 			["Axe Shard", 1, 0.3, "axs"],
 			["Rune Fragment", 1, 0.2, "rf"],
 			["Attribute Shard", 1, 0.2, "as"],
-			["Small Health Crystal", 1, 0.8, "hc"],
-			["Small Energy Crystal", 1, 0.8, "ec"]
+			["Small Health Crystal", 1, 0.5, "hc"],
+			["Small Energy Crystal", 1, 0.5, "ec"]
 		];
 	} else if (battle > 20 && battle <= 30) {
 
