@@ -1,5 +1,5 @@
 // JavaScript File for Risbane:
-// V.0.4.0
+// V.0.4.1
 
 // Main Global Varriables
 
@@ -69,7 +69,7 @@ var hpGuess;
 
 
 // Weapon Object
-function Weapon(name, type, baseDamage, fireDamage, iceDamage, poisonDamage, level, attributeSlots, attributes) {
+function Weapon(name, type, baseDamage, fireDamage, iceDamage, poisonDamage, level, attributeSlots, attributes, range) {
     this.name = name;
     this.type = type;
     this.baseDamage = baseDamage;
@@ -79,7 +79,7 @@ function Weapon(name, type, baseDamage, fireDamage, iceDamage, poisonDamage, lev
     this.weaponLevel = level;
     this.attributeSlots = attributeSlots;
     this.attributes = attributes;
-    // DEV NOTE Add Range
+    this.range = range;
     // DEV NOTE Add Proc/Crit and Puncture?
 }
 
@@ -88,6 +88,7 @@ $(document).ready(function() {
     input.hide();
     $("#inventoryOpt").hide();
     mainOutput.html("Hello and welcome to Risbane! <br>To begin the game, click start, to learn more about how to play click learn more.");
+    $("#sidebar").html(""); // Hides Scrollbar by putting in an element which corrects the size.
 });
 
 function learnMore() {
@@ -170,7 +171,7 @@ function playerStats() {
     var defaultWeapon = new Weapon("Steel Sword", 1, 10, 0, 0, 0, 0, 0, [
         ["", ""],
         [0, 0]
-    ]);
+    ], 5);
     if (Player.class == 1) {
         Player.intelligence = 10 + randomINT;
         Player.level = 1;
@@ -367,16 +368,38 @@ function updateStats(start) {
     $("#sidebar").css("color", "black");
     $("#sidebar").html("<div id='pstat'><h3>Player Stats:</h3><br>" + "Name: " + Player.name + "<br>Class: " + Player.className + "<br>Intelligence: " + Player.intelligence + "<br>Luck: " + Player.luck + "<br>Speed: " + Player.speed + "<br>Defense: " + Player.defense + "<br>Health: " + Math.round(Player.health) + "<br>Energy: " + Player.energy + "<br>Energy Regen: " + Player.energyRegen + "<br>Ofensive Power Name: " + Player.offensivePowerName + "<br>Offensive Power Cost: " + Player.offensivePowerCost + "<br>Defensive Power Name: " + Player.defensivePowerName + "<br>Defensive Power Cost: " + Player.defensivePowerCost + "<br>");
 
-    if (Player.currentWeapon.fireDamage > 0 && Player.currentWeapon.iceDamage == 0 && Player.currentWeapon.poisonDamage == 0) {
-        $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon fire lvl" + Player.currentWeapon.weaponLevel + "' src='icons/sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
-    } else if (Player.currentWeapon.iceDamage > 0 && Player.currentWeapon.fireDamage == 0 && Player.currentWeapon.poisonDamage == 0) {
-        $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon ice lvl" + Player.currentWeapon.weaponLevel + "' src='icons/sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
-    } else if (Player.currentWeapon.poisonDamage > 0 && Player.currentWeapon.iceDamage == 0 && Player.currentWeapon.fireDamage == 0) {
-        $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon poison lvl" + Player.currentWeapon.weaponLevel + "' src='icons/sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
-    } else {
-        $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon lvl" + Player.currentWeapon.weaponLevel + "' src='icons/sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
+    // Weapon Types
+    if (Player.currentWeapon.type == 1) {
+        if (Player.currentWeapon.fireDamage > 0 && Player.currentWeapon.iceDamage == 0 && Player.currentWeapon.poisonDamage == 0) {
+            $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon fire lvl" + Player.currentWeapon.weaponLevel + "' src='http://www.clker.com/cliparts/X/T/C/n/G/z/sword-hi.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Range: " + Player.currentWeapon.range + "<br>Elemental Damage:<br>Attributes: </div></div></div>");
+        } else if (Player.currentWeapon.iceDamage > 0 && Player.currentWeapon.fireDamage == 0 && Player.currentWeapon.poisonDamage == 0) {
+            $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon ice lvl" + Player.currentWeapon.weaponLevel + "' src='http://www.clker.com/cliparts/X/T/C/n/G/z/sword-hi.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Range: " + Player.currentWeapon.range + "<br>Elemental Damage:<br>Attributes: </div></div></div>");
+        } else if (Player.currentWeapon.poisonDamage > 0 && Player.currentWeapon.iceDamage == 0 && Player.currentWeapon.fireDamage == 0) {
+            $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon poison lvl" + Player.currentWeapon.weaponLevel + "' src='http://www.clker.com/cliparts/X/T/C/n/G/z/sword-hi.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Range: " + Player.currentWeapon.range + "<br>Elemental Damage:<br>Attributes: </div></div></div>");
+        } else {
+            $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon lvl" + Player.currentWeapon.weaponLevel + "' src='http://www.clker.com/cliparts/X/T/C/n/G/z/sword-hi.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Range: " + Player.currentWeapon.range + "<br>Elemental Damage:<br>Attributes: </div></div></div>");
+        }
+    } else if (Player.currentWeapon.type == 2) {
+        if (Player.currentWeapon.fireDamage > 0 && Player.currentWeapon.iceDamage == 0 && Player.currentWeapon.poisonDamage == 0) {
+            $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon fire lvl" + Player.currentWeapon.weaponLevel + "' src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Range: " + Player.currentWeapon.range + "<br>Elemental Damage:<br>Attributes: </div></div></div>");
+        } else if (Player.currentWeapon.iceDamage > 0 && Player.currentWeapon.fireDamage == 0 && Player.currentWeapon.poisonDamage == 0) {
+            $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon ice lvl" + Player.currentWeapon.weaponLevel + "' src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Range: " + Player.currentWeapon.range + "<br>Elemental Damage:<br>Attributes: </div></div></div>");
+        } else if (Player.currentWeapon.poisonDamage > 0 && Player.currentWeapon.iceDamage == 0 && Player.currentWeapon.fireDamage == 0) {
+            $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon poison lvl" + Player.currentWeapon.weaponLevel + "' src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Range: " + Player.currentWeapon.range + "<br>Elemental Damage:<br>Attributes: </div></div></div>");
+        } else {
+            $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon lvl" + Player.currentWeapon.weaponLevel + "' src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Range: " + Player.currentWeapon.range + "<br>Elemental Damage:<br>Attributes: </div></div></div>");
+        }
+    } else if (Player.currentWeapon.type == 3) {
+        if (Player.currentWeapon.fireDamage > 0 && Player.currentWeapon.iceDamage == 0 && Player.currentWeapon.poisonDamage == 0) {
+            $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon fire lvl" + Player.currentWeapon.weaponLevel + "' src='https://www.freeiconspng.com/uploads/bow-png-4.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Range: " + Player.currentWeapon.range + "<br>Elemental Damage:<br>Attributes: </div></div></div>");
+        } else if (Player.currentWeapon.iceDamage > 0 && Player.currentWeapon.fireDamage == 0 && Player.currentWeapon.poisonDamage == 0) {
+            $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon ice lvl" + Player.currentWeapon.weaponLevel + "' src='https://www.freeiconspng.com/uploads/bow-png-4.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Range: " + Player.currentWeapon.range + "<br>Elemental Damage:<br>Attributes: </div></div></div>");
+        } else if (Player.currentWeapon.poisonDamage > 0 && Player.currentWeapon.iceDamage == 0 && Player.currentWeapon.fireDamage == 0) {
+            $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon poison lvl" + Player.currentWeapon.weaponLevel + "' src='https://www.freeiconspng.com/uploads/bow-png-4.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Range: " + Player.currentWeapon.range + "<br>Elemental Damage:<br>Attributes: </div></div></div>");
+        } else {
+            $("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon lvl" + Player.currentWeapon.weaponLevel + "' src='https://www.freeiconspng.com/uploads/bow-png-4.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Range: " + Player.currentWeapon.range + "<br>Elemental Damage:<br>Attributes: </div></div></div>");
+        }
     }
-
 
     if (start) {
         Battle();
@@ -588,9 +611,10 @@ function Attack(weapon) {
 
     if (Player.currentWeapon.type == 1) {
         var randomRoll = Math.round(Math.random() * ((Math.random() * Player.luck) + (Player.intelligence + enemyLevel)) + 1); // Added damage to attack
+        var retaliation = Math.random();
         var attackDamage = weapon.baseDamage + randomRoll;
         output.append("<br><br>Your attack damage: " + attackDamage);
-        if (enemyDistance <= 5) {
+        if (enemyDistance <= Player.currentWeapon.range) {
             if ((attackDamage > enemyDefense)) {
                 enemyHP -= (attackDamage / (enemyDefense / attackBonus)); // Enemy Damage midigation
                 hpGuess -= (attackDamage / (enemyDefense / attackBonus));
@@ -599,7 +623,7 @@ function Attack(weapon) {
             } else {
                 // Dodge and retaliation
                 output.append("<br>The enemy dodged!");
-                if (randomRoll > 0.15) {
+                if (retaliation < 0.15) {
                     output.append("<br>The enemy has retalliated");
                     Player.health -= (enemyDamage / Player.defense);
                     output.append("<br>The enemy did " + Math.round(enemyDamage / Player.health) + " points of damage!");
@@ -615,29 +639,61 @@ function Attack(weapon) {
             output.append("<br>You are not in range to hit the enemy.");
         }
     } else if (weapon.type == 2) {
-        var randomRoll = Math.round(Math.random() * ((Math.random() * Player.luck) + (Player.intelligence + enemyLevel)) + 1);
-        var attackDamage = Player.currentWeapon.baseDamage + randomRoll;
+        var randomRoll = Math.round(Math.random() * ((Math.random() * Player.luck) + (Player.intelligence + enemyLevel)) + 1); // Added damage to attack
+        var retaliation = Math.random();
+        var attackDamage = weapon.baseDamage + randomRoll;
         output.append("<br><br>Your attack damage: " + attackDamage);
-        if (enemyDistance <= (Player.range / (enemySpeed / ((Math.random() * Player.luck * 2) + Player.intelligence)))) { // Replace with weapon range.
-            if (attackDamage > enemyDefense) {
-                enemyHP -= (attackDamage / (enemyDefense / attackBonus));
+        if (enemyDistance <= Player.currentWeapon.range) {
+            if ((attackDamage > enemyDefense)) {
+                enemyHP -= (attackDamage / (enemyDefense / attackBonus)); // Enemy Damage midigation
                 hpGuess -= (attackDamage / (enemyDefense / attackBonus));
                 output.append("<br>You have hit the enemy with your " + weapon.name);
                 output.append("<br>Hit: " + Math.round((attackDamage / (enemyDefense / attackBonus))));
             } else {
+                // Dodge and retaliation
                 output.append("<br>The enemy dodged!");
-                if (randomRoll > 0.25) {
-                    output.append("The enemy has retalliated");
+                if (retaliation < 0.15) {
+                    output.append("<br>The enemy has retalliated");
                     Player.health -= (enemyDamage / Player.defense);
-                    output.append("The enemy did " + Math.round(enemyDamage / Player.defense) + " points of damage!");
-                    output.append("Your health is now at: " + Math.round(Player.health));
+                    output.append("<br>The enemy did " + Math.round(enemyDamage / Player.health) + " points of damage!");
+                    output.append("<br>Your health is now at: " + Math.round(Player.health));
                     if (Player.health <= 0) {
-                        output.append("<br><br><br> Game over! You Have Died.<br> Restart program to play again.");
+                        output.append("<br><br><br><br> Game over! You Have Died.<br> Restart program to play again.");
                         return;
                     }
                 }
             }
         } else {
+            // Range has to be 5 for sword hit.
+            output.append("<br>You are not in range to hit the enemy.");
+        }
+    } else if (Player.currentWeapon.type == 3) {
+        var randomRoll = Math.round(Math.random() * ((Math.random() * (Player.luck)) + (Player.intelligence + enemyLevel)) + 1); // Added damage to attack
+        var retaliation = Math.random();
+        var attackDamage = weapon.baseDamage + randomRoll;
+        output.append("<br><br>Your attack damage: " + attackDamage);
+        if (enemyDistance <= Player.currentWeapon.range) {
+            if ((attackDamage > enemyDefense)) {
+                enemyHP -= (attackDamage / (enemyDefense / attackBonus)); // Enemy Damage midigation
+                hpGuess -= (attackDamage / (enemyDefense / attackBonus));
+                output.append("<br>You have hit the enemy with your " + weapon.name);
+                output.append("<br>Hit: " + Math.round((attackDamage / (enemyDefense / attackBonus))));
+            } else {
+                // Dodge and retaliation
+                output.append("<br>The enemy dodged!");
+                if (retaliation < 0.15) {
+                    output.append("<br>The enemy has retalliated");
+                    Player.health -= (enemyDamage / Player.defense);
+                    output.append("<br>The enemy did " + Math.round(enemyDamage / Player.health) + " points of damage!");
+                    output.append("<br>Your health is now at: " + Math.round(Player.health));
+                    if (Player.health <= 0) {
+                        output.append("<br><br><br><br> Game over! You Have Died.<br> Restart program to play again.");
+                        return;
+                    }
+                }
+            }
+        } else {
+            // Range has to be 5 for sword hit.
             output.append("<br>You are not in range to hit the enemy.");
         }
     }
@@ -835,14 +891,36 @@ function inventoryPage() {
             slotID = 1;
             $("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
         }
-        if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-            $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
-        } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-            $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
-        } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
-            $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
-        } else {
-            $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+        if (Player.weaponInventory[weaponSel].type == 1) {
+            if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
+                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            } else {
+                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            }
+        } else if (Player.weaponInventory[weaponSel].type == 2) {
+            if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
+                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            } else {
+                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            }
+        } else if (Player.weaponInventory[weaponSel].type == 3) {
+            if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
+                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            } else {
+                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            }
         }
     }
 
@@ -1005,7 +1083,7 @@ function inventoryPage() {
 
     $("#forge").click(function() {
         $("#nextBattle").remove();
-        $("#inventoryOpt").html("<h1>Forge Weapon:</h1><br><br><p>Please select 3 sword shards to be forged into a new sword.</p>");
+        $("#inventoryOpt").html("<h1>Forge Weapon:</h1><br><br><p>Please select three Weapon Shards of the same type to be forged into a new weapon.</p>");
         $("#bottombar").append("<button id='inventoryBack'>Back</button>");
         $("#inventoryBack").click(function() {
             $('#inventoryBack').remove();
@@ -1032,19 +1110,38 @@ function inventoryPage() {
         var axeForge = $("<button>/", {
             text: 'Axe',
             click: function() {
-                $("#inventoryOpt").html("<h1>Forge Axe</h1>");
-                $(axeForge).remove();
-                createWeapon(2);
+                if (selected.length == 3 && selected[0] == "axeshard" && selected[1] == "axeshard" && selected[2] == "axeshard") {
+                    $("#inventoryOpt").html("<h1>Forge Axe</h1>");
+                    $("#nextBattle").remove();
+                    $(axeForge).remove();
+                    $("#forge").remove();
+                    createWeapon(2, 1);
+                } else {
+                    $("#nextBattle").remove();
+                    $(axeForge).remove();
+                    $("#forge").remove();
+                    inventoryPage();
+                }
             }
         });
         var bowForge = $("<button>/", {
             text: 'Bow',
             click: function() {
-                $("#inventoryOpt").html("<h1>Forge Bow</h1>");
-                $(bowForge).remove();
-                createWeapon(3);
+                if (selected.length == 3 && selected[0] == "bowshard" && selected[1] == "bowshard" && selected[2] == "bowshard") {
+                    $("#inventoryOpt").html("<h1>Forge Bow</h1>");
+                    $("#nextBattle").remove();
+                    $(bowForge).remove();
+                    $("#forge").remove();
+                    createWeapon(3, 1);
+                } else {
+                    $("#nextBattle").remove();
+                    $(bowForge).remove();
+                    $("#forge").remove();
+                    inventoryPage();
+                }
             }
         });
+
         $("#inventoryOpt").append(swordForge);
         $("#inventoryOpt").append(axeForge);
         $("#inventoryOpt").append(bowForge);
@@ -1081,11 +1178,11 @@ function inventoryActionUpdate(selected) {
         } else if (selected[item] == "healthcrystal" && selected.length == 1) {
             $("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Small Health Crystal:</h2><br><br></center><p>Description: a small crystal enchanted with healing energy. This can be used any time in battle to heal 1 health. Combine three of these magic crystals to forge an average health crystal which can restore more health.<br><br>Scrap Value: 20 xp<br>Scrap Items: None<br><br>Equipable: yes<br><br>Level: 1</p>");
         } else if (selected[item] == "healthcrystal2" && selected.length == 1) {
-            $("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Health Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted with healing energy. This can be used any time in battle to heal 5 health. Combine three of these magic crystals to forge a smooth health crystal which can restore more health.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Health Crystal (1-2)<br><br>Equipable: yes<br><br>Level: 2</p>");
+            $("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Health Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted with healing energy. This can be used any time in battle to heal 3 health. Combine three of these magic crystals to forge a smooth health crystal which can restore more health.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Health Crystal (1-2)<br><br>Equipable: yes<br><br>Level: 2</p>");
         } else if (selected[item] == "energycrystal" && selected.length == 1) {
-            $("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Small Energy Crystal:</h2><br><br></center><p>Description: a small crystal enchanted to restore energy upon use. This can be used any time in battle to give 5 energy. Combine three of these energy crystals to forge an average energy crystal which can restore more energy.<br><br>Scrap Value: 20 xp<br>Scrap Items: None<br><br>Equipable: yes<br><br>Level: 1</p>");
+            $("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Small Energy Crystal:</h2><br><br></center><p>Description: a small crystal enchanted to restore energy upon use. This can be used any time in battle to give 10 energy. Combine three of these energy crystals to forge an average energy crystal which can restore more energy.<br><br>Scrap Value: 20 xp<br>Scrap Items: None<br><br>Equipable: yes<br><br>Level: 1</p>");
         } else if (selected[item] == "energycrystal2" && selected.length == 1) {
-            $("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Energy Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted to restore energy upon use. This can be used any time in battle to give 20 energy. Combine three of these energy crystals to forge a smooth energy crystal which can restore more energy.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Energy Crystal (1-3)<br><br>Equipable: yes<br><br>Level: 2</p>");
+            $("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Average Energy Crystal:</h2><br><br></center><p>Description: an average sized crystal enchanted to restore energy upon use. This can be used any time in battle to give 20 energy. Combine three of these energy crystals to forge a smooth energy crystal which can restore more energy.<br><br>Scrap Value: 40 xp<br>Scrap Items: Small Energy Crystal (1-2)<br><br>Equipable: yes<br><br>Level: 2</p>");
         } else if (selected.length == 1) {
             for (var weps = 0; weps < Player.weaponInventory.length; weps++) {
                 var name = selected[item].replace(/[0-9]/g, '').trim();
@@ -1093,7 +1190,7 @@ function inventoryActionUpdate(selected) {
                 if (Player.weaponInventory[weps].name == name) {
                     $("#sidebar").css("background-color", "#202020");
                     $("#sidebar").css("color", "#F5F5F5");
-                    $("#sidebar").html("<div id='weaponStC'><center><h2 style='margin-bottom: 0px, font-weight: bold;'>" + name + ":</h2><br><br></center><p><b>Description:</b><div class='stat_secondary'> a weapon with stats</div><br><br><b>Scrap Value:</b> <div class='stat_secondary'>100 xp</div><br><b>Scrap Items:</b> <div class='stat_secondary'>Sword Shards (1-3)</div><br><br><b>Equipable:</b><div class='stat_secondary'> yes</div><br><br><b>Level:</b><div class='stat_secondary'> " + Player.weaponInventory[weps].weaponLevel + "</div><br><br><h2 style='margin: 0px; padding: 0px;'><b>Stats:</b></h2><br><br><b>Base Stats:</b><br><div class='stat_secondary'>Damage: " + Player.weaponInventory[weps].baseDamage + "<br>Proc Chance: 0%<br>Crit Chance: 0%<br>Puncture: 0</div><br><br><b>Elemental Damage: </b><br><div class='stat_secondary'><div id='d_fire'>Fire Damage: " + Player.weaponInventory[weps].fireDamage + "</div><br><div id='d_ice'>Ice Damage: " + Player.weaponInventory[weps].iceDamage + "</div><br><div id='d_poison'>Poison Damage: " + Player.weaponInventory[weps].poisonDamage + "</div></div><br><br><b>Attributes:</b><br><div class='stat_secondary'>Attribute Slots: " + Player.weaponInventory[weps].attributeSlots + "</p></div></div>");
+                    $("#sidebar").html("<div id='weaponStC'><center><h2 style='margin-bottom: 0px, font-weight: bold;'>" + name + ":</h2><br><br></center><p><b>Description:</b><div class='stat_secondary'> a weapon with stats</div><br><br><b>Scrap Value:</b> <div class='stat_secondary'>100 xp</div><br><b>Scrap Items:</b> <div class='stat_secondary'>Weapon Shards (1-3)</div><br><br><b>Equipable:</b><div class='stat_secondary'> yes</div><br><br><b>Level:</b><div class='stat_secondary'> " + Player.weaponInventory[weps].weaponLevel + "</div><br><br><h2 style='margin: 0px; padding: 0px;'><b>Stats:</b></h2><br><br><b>Base Stats:</b><br><div class='stat_secondary'>Damage: " + Player.weaponInventory[weps].baseDamage + "<br>Proc Chance: 0%<br>Crit Chance: 0%<br>Puncture: 0<br>Range: " + Player.weaponInventory[weps].range + "</div><br><br><b>Elemental Damage: </b><br><div class='stat_secondary'><div id='d_fire'>Fire Damage: " + Player.weaponInventory[weps].fireDamage + "</div><br><div id='d_ice'>Ice Damage: " + Player.weaponInventory[weps].iceDamage + "</div><br><div id='d_poison'>Poison Damage: " + Player.weaponInventory[weps].poisonDamage + "</div></div><br><br><b>Attributes:</b><br><div class='stat_secondary'>Attribute Slots: " + Player.weaponInventory[weps].attributeSlots + "</p></div></div>");
                     weps = Player.weaponInventory.length;
                 }
             }
@@ -1277,73 +1374,209 @@ function runAway() {
 
 
 function createWeapon(type, level) {
-    var createweapon = false;
-    var randomDMG = Math.round(Math.random() * Player.luck + 10);
-    var poisonDamage = 0;
-    var fireDamage = 0;
-    var iceDamage = 0;
-    var weaponName = "";
-    var bonusDamageChance = Math.random();
-    var bonusType = Math.random();
-    if (Math.random() > bonusDamageChance) {
-        if (bonusType <= 0.33) {
-            fireDamage = Math.round(Math.random() * Player.luck + Player.intelligence);
-        } else if (bonusType <= 0.66) {
-            iceDamage = Math.round(Math.random() * Player.luck + Player.intelligence);
-        } else {
-            poisonDamage = Math.round(Math.random() * Player.luck + Player.intelligence);
-        }
-    }
-    $("#inventoryOpt").html("<h1>Weapon Creation:</h1><br><br><div id='wepNameIn'><b>Enter a name for your new sword:</b><br><input id='nameInput'></div>");
-
-    $("#nameInput").keypress(function(event) {
-        var keycode = (event.keyCode ? event.keyCode : event.which);
-        var s = $("#nameInput").val().toString().trim();
-        var ls = s.replace(/[0-9]/g, '');
-        if (keycode == '13') {
-            for (var wepsNameCheck = 0; wepsNameCheck < Player.weaponInventory.length; wepsNameCheck++) {
-                if (Player.weaponInventory[wepsNameCheck].name == s) {
-                    alert("Name already exists!");
-                    createweapon = false;
-                    wepsNameCheck = Player.weaponInventory.length;
-                } else if (ls.length < s.length) {
-                    alert("You can not have numbers in the name!");
-                    createweapon = false;
-                    wepsNameCheck = Player.weaponInventory.length;
-                } else if (s.length > 25) {
-                    alert("Sorry that name is too long.");
-                    createweapon = false;
-                    wepsNameCheck = Player.weaponInventory.length;
-                } else {
-                    createweapon = true;
-                }
+    if (type == 1) {
+        var createweapon = false;
+        var randomDMG = Math.round(Math.random() * Player.luck + 10);
+        var poisonDamage = 0;
+        var fireDamage = 0;
+        var iceDamage = 0;
+        var weaponRange = Math.round((((Math.random() * Player.speed + Player.intelligence) / Player.defense) + 2) * 1.5);
+        var weaponName = "";
+        var bonusDamageChance = Math.random();
+        var bonusType = Math.random();
+        if (Math.random() > bonusDamageChance) {
+            if (bonusType <= 0.33) {
+                fireDamage = Math.round(Math.random() * ((Player.luck + Player.intelligence) / 4));
+            } else if (bonusType <= 0.66) {
+                iceDamage = Math.round(Math.random() * ((Player.luck + Player.intelligence) / 4));
+            } else {
+                poisonDamage = Math.round(Math.random() * ((Player.luck + Player.intelligence) / 4));
             }
-            if (createweapon) {
-                var combined = 0;
-                var weapon = new Weapon(s, type, randomDMG, fireDamage, iceDamage, poisonDamage, level, 1, [""]);
-                if (level == 1) {
-                    for (var z = 0; z === 0;) {
-                        if (combined < 3) {
-                            for (var inv = 0; inv <= Player.inventory[0][1][1][1].length; inv++) {
-                                Player.inventory[0][1][1][1].splice(inv, 1);
-                                combined++;
-                            }
-                        } else {
-                            z = 1;
-                        }
+        }
+        $("#inventoryOpt").html("<h1>Weapon Creation:</h1><br><br><div id='wepNameIn'><b>Enter a name for your new sword:</b><br><input id='nameInput'></div>");
+
+        $("#nameInput").keypress(function(event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            var s = $("#nameInput").val().toString().trim();
+            var ls = s.replace(/[0-9]/g, '');
+            if (keycode == '13') {
+                for (var wepsNameCheck = 0; wepsNameCheck < Player.weaponInventory.length; wepsNameCheck++) {
+                    if (Player.weaponInventory[wepsNameCheck].name == s) {
+                        alert("Name already exists!");
+                        createweapon = false;
+                        wepsNameCheck = Player.weaponInventory.length;
+                    } else if (ls.length < s.length) {
+                        alert("You can not have numbers in the name!");
+                        createweapon = false;
+                        wepsNameCheck = Player.weaponInventory.length;
+                    } else if (s.length > 25) {
+                        alert("Sorry that name is too long.");
+                        createweapon = false;
+                        wepsNameCheck = Player.weaponInventory.length;
+                    } else {
+                        createweapon = true;
                     }
                 }
-                Player.currentWeapon = weapon;
-                Player.weaponInventory.push(weapon);
-                inventoryPage();
+                if (createweapon) {
+                    var combined = 0;
+                    var weapon = new Weapon(s, type, randomDMG, fireDamage, iceDamage, poisonDamage, level, 1, [""], weaponRange);
+                    if (level == 1) {
+                        for (var z = 0; z === 0;) {
+                            if (combined < 3) {
+                                for (var inv = 0; inv <= Player.inventory[0][1][1][1].length; inv++) {
+                                    Player.inventory[0][1][1][1].splice(inv, 1);
+                                    combined++;
+                                }
+                            } else {
+                                z = 1;
+                            }
+                        }
+                    }
+                    Player.currentWeapon = weapon;
+                    Player.weaponInventory.push(weapon);
+                    inventoryPage();
+                } else {
+                    inventoryPage();
+                }
+            }
+            event.stopPropagation();
+        });
+    } else if (type == 2) {
+        var createweapon = false;
+        var randomDMG = Math.round(Math.random() * Player.luck + 10);
+        var poisonDamage = 0;
+        var fireDamage = 0;
+        var iceDamage = 0;
+        var weaponRange = Math.round((((Math.random() * Player.speed + Player.intelligence) / Player.defense) + 1) * 1.2);
+        var weaponName = "";
+        var bonusDamageChance = Math.random();
+        var bonusType = Math.random();
+        if (Math.random() > bonusDamageChance) {
+            if (bonusType <= 0.33) {
+                fireDamage = Math.round(Math.random() * ((Player.luck + Player.intelligence) / 4));
+            } else if (bonusType <= 0.66) {
+                iceDamage = Math.round(Math.random() * ((Player.luck + Player.intelligence) / 4));
             } else {
-                inventoryPage();
+                poisonDamage = Math.round(Math.random() * ((Player.luck + Player.intelligence) / 4));
             }
         }
-        event.stopPropagation();
-    });
-}
+        $("#inventoryOpt").html("<h1>Weapon Creation:</h1><br><br><div id='wepNameIn'><b>Enter a name for your new axe:</b><br><input id='nameInput'></div>");
 
+        $("#nameInput").keypress(function(event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            var s = $("#nameInput").val().toString().trim();
+            var ls = s.replace(/[0-9]/g, '');
+            if (keycode == '13') {
+                for (var wepsNameCheck = 0; wepsNameCheck < Player.weaponInventory.length; wepsNameCheck++) {
+                    if (Player.weaponInventory[wepsNameCheck].name == s) {
+                        alert("Name already exists!");
+                        createweapon = false;
+                        wepsNameCheck = Player.weaponInventory.length;
+                    } else if (ls.length < s.length) {
+                        alert("You can not have numbers in the name!");
+                        createweapon = false;
+                        wepsNameCheck = Player.weaponInventory.length;
+                    } else if (s.length > 25) {
+                        alert("Sorry that name is too long.");
+                        createweapon = false;
+                        wepsNameCheck = Player.weaponInventory.length;
+                    } else {
+                        createweapon = true;
+                    }
+                }
+                if (createweapon) {
+                    var combined = 0;
+                    var weapon = new Weapon(s, type, randomDMG, fireDamage, iceDamage, poisonDamage, level, 1, [""], weaponRange);
+                    if (level == 1) {
+                        for (var z = 0; z === 0;) {
+                            if (combined < 3) {
+                                for (var inv = 0; inv <= Player.inventory[0][1][2][1].length; inv++) {
+                                    Player.inventory[0][1][2][1].splice(inv, 1);
+                                    combined++;
+                                }
+                            } else {
+                                z = 1;
+                            }
+                        }
+                    }
+                    Player.currentWeapon = weapon;
+                    Player.weaponInventory.push(weapon);
+                    inventoryPage();
+                } else {
+                    inventoryPage();
+                }
+            }
+            event.stopPropagation();
+        });
+    } else if (type == 3) {
+        var createweapon = false;
+        var randomDMG = Math.round(Math.random() * Player.luck + 10) / 1.5;
+        var poisonDamage = 0;
+        var fireDamage = 0;
+        var iceDamage = 0;
+        var weaponRange = Math.round((((Math.random() * Player.speed + Player.intelligence) / Player.defense) + 5) * 2);
+        var weaponName = "";
+        var bonusDamageChance = Math.random();
+        var bonusType = Math.random();
+        if (Math.random() > bonusDamageChance) {
+            if (bonusType <= 0.33) {
+                fireDamage = Math.round(Math.random() * ((Player.luck + Player.intelligence) / 4));
+            } else if (bonusType <= 0.66) {
+                iceDamage = Math.round(Math.random() * ((Player.luck + Player.intelligence) / 4));
+            } else {
+                poisonDamage = Math.round(Math.random() * ((Player.luck + Player.intelligence) / 4));
+            }
+        }
+        $("#inventoryOpt").html("<h1>Weapon Creation:</h1><br><br><div id='wepNameIn'><b>Enter a name for your new bow:</b><br><input id='nameInput'></div>");
+
+        $("#nameInput").keypress(function(event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            var s = $("#nameInput").val().toString().trim();
+            var ls = s.replace(/[0-9]/g, '');
+            if (keycode == '13') {
+                for (var wepsNameCheck = 0; wepsNameCheck < Player.weaponInventory.length; wepsNameCheck++) {
+                    if (Player.weaponInventory[wepsNameCheck].name == s) {
+                        alert("Name already exists!");
+                        createweapon = false;
+                        wepsNameCheck = Player.weaponInventory.length;
+                    } else if (ls.length < s.length) {
+                        alert("You can not have numbers in the name!");
+                        createweapon = false;
+                        wepsNameCheck = Player.weaponInventory.length;
+                    } else if (s.length > 25) {
+                        alert("Sorry that name is too long.");
+                        createweapon = false;
+                        wepsNameCheck = Player.weaponInventory.length;
+                    } else {
+                        createweapon = true;
+                    }
+                }
+                if (createweapon) {
+                    var combined = 0;
+                    var weapon = new Weapon(s, type, randomDMG, fireDamage, iceDamage, poisonDamage, level, 1, [""], weaponRange);
+                    if (level == 1) {
+                        for (var z = 0; z === 0;) {
+                            if (combined < 3) {
+                                for (var inv = 0; inv <= Player.inventory[0][1][3][1].length; inv++) {
+                                    Player.inventory[0][1][3][1].splice(inv, 1);
+                                    combined++;
+                                }
+                            } else {
+                                z = 1;
+                            }
+                        }
+                    }
+                    Player.currentWeapon = weapon;
+                    Player.weaponInventory.push(weapon);
+                    inventoryPage();
+                } else {
+                    inventoryPage();
+                }
+            }
+            event.stopPropagation();
+        });
+    }
+}
 
 function combineGem(type) {
     var combined = 0;
@@ -1716,14 +1949,36 @@ function equipItem(action, slot) {
                 slotID = 1;
                 $("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
             }
-            if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
-            } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
-            } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
-                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
-            } else {
-                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            if (Player.weaponInventory[weaponSel].type == 1) {
+                if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                }
+            } else if (Player.weaponInventory[weaponSel].type == 2) {
+                if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                }
+            } else if (Player.weaponInventory[weaponSel].type == 3) {
+                if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                }
             }
         }
 
@@ -1922,14 +2177,36 @@ function equipItem(action, slot) {
                 slotID = 1;
                 $("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
             }
-            if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
-            } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
-            } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
-                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
-            } else {
-                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            if (Player.weaponInventory[weaponSel].type == 1) {
+                if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                }
+            } else if (Player.weaponInventory[weaponSel].type == 2) {
+                if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                }
+            } else if (Player.weaponInventory[weaponSel].type == 3) {
+                if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                }
             }
         }
 
@@ -2188,14 +2465,36 @@ function equipWeapon(weapon) {
                 slotID = 1;
                 $("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
             }
-            if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
-            } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
-            } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
-                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
-            } else {
-                $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+            if (Player.weaponInventory[weaponSel].type == 1) {
+                if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.searchpng.com/wp-content/uploads/2019/01/sword-Clipart-png-1024x1024.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                }
+            } else if (Player.weaponInventory[weaponSel].type == 2) {
+                if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://cdn.pixabay.com/photo/2012/05/04/10/04/axe-47042_640.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                }
+            } else if (Player.weaponInventory[weaponSel].type == 3) {
+                if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                } else {
+                    $("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='https://www.freeiconspng.com/uploads/bow-png-4.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+                }
             }
         }
 
