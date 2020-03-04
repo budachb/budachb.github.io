@@ -1510,7 +1510,7 @@ function createWeapon(type, level) {
         });
     } else if (type == 3) {
         var createweapon = false;
-        var randomDMG = Math.round(Math.random() * Player.luck + 10) / 1.5;
+        var randomDMG = Math.round((Math.random() * Player.luck + 10)/1.5);
         var poisonDamage = 0;
         var fireDamage = 0;
         var iceDamage = 0;
