@@ -217,11 +217,11 @@ function playerStats() {
 		];
 	} else if (Player.class == 2) {
 		Player.intelligence = 5 + randomINT;
-		Player.luck = 4 + randomLUK;
 		Player.level = 1;
+		Player.statPoints = 0;
 		Player.experience = 0;
 		Player.nextLevel = 100;
-		Player.statPoints = 0;
+		Player.luck = 4 + randomLUK;
 		Player.speed = 5 + randomSPD;
 		Player.defense = 6 + randomDEF;
 		Player.health = 60 + randomHP;
@@ -245,8 +245,14 @@ function playerStats() {
 			["Attributes", ["Shards", []],
 				["Built", []]
 			],
-			["Crystals", ["Health", []],
-				["Energy", []]
+			["Crystals", ["Health", [
+					[],
+					[]
+				]],
+				["Energy", [
+					[],
+					[]
+				]]
 			]
 		];
 		Player.inventoryEquipped = [
@@ -283,8 +289,14 @@ function playerStats() {
 			["Attributes", ["Shards", []],
 				["Built", []]
 			],
-			["Crystals", ["Health", []],
-				["Energy", []]
+			["Crystals", ["Health", [
+					[],
+					[]
+				]],
+				["Energy", [
+					[],
+					[]
+				]]
 			]
 		];
 		Player.inventoryEquipped = [
@@ -321,8 +333,14 @@ function playerStats() {
 			["Attributes", ["Shards", []],
 				["Built", []]
 			],
-			["Crystals", ["Health", []],
-				["Energy", []]
+			["Crystals", ["Health", [
+					[],
+					[]
+				]],
+				["Energy", [
+					[],
+					[]
+				]]
 			]
 		];
 		Player.inventoryEquipped = [
@@ -350,13 +368,13 @@ function updateStats(start) {
 	$("#sidebar").html("<div id='pstat'><h3>Player Stats:</h3><br>" + "Name: " + Player.name + "<br>Class: " + Player.className + "<br>Intelligence: " + Player.intelligence + "<br>Luck: " + Player.luck + "<br>Speed: " + Player.speed + "<br>Defense: " + Player.defense + "<br>Health: " + Math.round(Player.health) + "<br>Energy: " + Player.energy + "<br>Energy Regen: " + Player.energyRegen + "<br>Ofensive Power Name: " + Player.offensivePowerName + "<br>Offensive Power Cost: " + Player.offensivePowerCost + "<br>Defensive Power Name: " + Player.defensivePowerName + "<br>Defensive Power Cost: " + Player.defensivePowerCost + "<br>");
 	
 	if (Player.currentWeapon.fireDamage > 0 && Player.currentWeapon.iceDamage == 0 && Player.currentWeapon.poisonDamage == 0) {
-			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon fire lvl" + Player.currentWeapon.weaponLevel + "' src='sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
+			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon fire lvl" + Player.currentWeapon.weaponLevel + "' src='icons/sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
 		} else if (Player.currentWeapon.iceDamage > 0 && Player.currentWeapon.fireDamage == 0 && Player.currentWeapon.poisonDamage == 0) {
-			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon ice lvl" + Player.currentWeapon.weaponLevel + "' src='sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
+			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon ice lvl" + Player.currentWeapon.weaponLevel + "' src='icons/sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
 		} else if (Player.currentWeapon.poisonDamage > 0 && Player.currentWeapon.iceDamage == 0 && Player.currentWeapon.fireDamage == 0) {
-			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon poison lvl" + Player.currentWeapon.weaponLevel + "' src='sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
+			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon poison lvl" + Player.currentWeapon.weaponLevel + "' src='icons/sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
 		} else {
-			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon lvl" + Player.currentWeapon.weaponLevel + "' src='sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
+			$("#sidebar").append("<h3 style='margin-bottom: 0px;'>Weapon Stats:</h3><br><div id='weaponContainer'><img class='weapon lvl" + Player.currentWeapon.weaponLevel + "' src='icons/sword_shard.png' width='10px' height='10px'><div id='wStatContainer'>Name: " + Player.currentWeapon.name + "<br>Type: " + Player.currentWeapon.type + "<br>Damage: " + Player.currentWeapon.baseDamage + "<br>Elemental Damage:<br>Range:<br>Attributes: </div></div></div>");
 		}
 	
 		
@@ -751,7 +769,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
 	}
 	for (var aShards = 0; aShards < Player.inventory[0][1][2][1].length; aShards++) {
 		slotID++;
@@ -760,7 +778,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='axe_shard.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/axe_shard.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
 	}
 	for (var bShards = 0; bShards < Player.inventory[0][1][3][1].length; bShards++) {
 		slotID++;
@@ -769,7 +787,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='bow_shard.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/bow_shard.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
 	}
 	for (var hCrystal = 0; hCrystal < Player.inventory[3][1][1][0].length; hCrystal++) {
 		slotID++;
@@ -778,7 +796,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='healthcrystal.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/healthcrystal.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
 	}
 	for (var eCrystal = 0; eCrystal < Player.inventory[3][2][1][0].length; eCrystal++) {
 		slotID++;
@@ -787,7 +805,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='energycrystal.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/icons/energycrystal.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
 	}
 
 	for (var rFragment = 0; rFragment < Player.inventory[1][1][1].length; rFragment++) {
@@ -797,7 +815,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='rune_fragment.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/rune_fragment.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
 	}
 
 	for (var attShard = 0; attShard < Player.inventory[2][1][1].length; attShard++) {
@@ -807,7 +825,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='attribute_shard.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/attribute_shard.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
 	}
 
 	for (var weaponSel = 0; weaponSel < Player.weaponInventory.length; weaponSel++) {
@@ -818,13 +836,13 @@ function inventoryPage() {
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
 		if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		} else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		} else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		} else {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		}
 	}
 
@@ -1535,13 +1553,13 @@ function inventoryPlayer() {
 		}
 		if (Player.inventoryEquipped[(slotID - 1)].length > 1) {
 			if (Player.inventoryEquipped[(slotID - 1)][1] == "energycrystal") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='energycrystal.png'>Small Energy Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='icons/energycrystal.png'>Small Energy Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1] == "energycrystal2") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='energycrystal.png'>Average Energy Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='icons/energycrystal.png'>Average Energy Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1] == "healthcrystal") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='healthcrystal.png'>Small Health Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='icons/healthcrystal.png'>Small Health Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1].toString() == "healthcrystal2") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='healthcrystal.png'>Average Health Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='icons/healthcrystal.png'>Average Health Crystal</div></td>");
 			}
 		} else {
 			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot empty' id='" + "slot" + slotID.toString() + "'><img src=''>Slot " + slotID + "</div></td>");
@@ -1632,7 +1650,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
 		}
 		for (var aShards = 0; aShards < Player.inventory[0][1][2][1].length; aShards++) {
 			slotID++;
@@ -1641,7 +1659,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='axe_shard.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/axe_shard.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
 		}
 		for (var bShards = 0; bShards < Player.inventory[0][1][3][1].length; bShards++) {
 			slotID++;
@@ -1650,7 +1668,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='bow_shard.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/bow_shard.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
 		}
 		for (var hCrystal = 0; hCrystal < Player.inventory[3][1][1][0].length; hCrystal++) {
 			slotID++;
@@ -1659,7 +1677,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='healthcrystal.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/healthcrystal.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
 		}
 		for (var eCrystal = 0; eCrystal < Player.inventory[3][2][1][0].length; eCrystal++) {
 			slotID++;
@@ -1668,7 +1686,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='energycrystal.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/energycrystal.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
 		}
 
 		for (var rFragment = 0; rFragment < Player.inventory[1][1][1].length; rFragment++) {
@@ -1678,7 +1696,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='rune_fragment.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/rune_fragment.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
 		}
 
 		for (var attShard = 0; attShard < Player.inventory[2][1][1].length; attShard++) {
@@ -1688,7 +1706,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='attribute_shard.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/attribute_shard.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
 		}
 
 		for (var weaponSel = 0; weaponSel < Player.weaponInventory.length; weaponSel++) {
@@ -1698,7 +1716,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		}
 
 		var selected = [];
@@ -1830,7 +1848,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
 		}
 		for (var aShards = 0; aShards < Player.inventory[0][1][2][1].length; aShards++) {
 			slotID++;
@@ -1839,7 +1857,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='axe_shard.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/axe_shard.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
 		}
 		for (var bShards = 0; bShards < Player.inventory[0][1][3][1].length; bShards++) {
 			slotID++;
@@ -1848,7 +1866,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='bow_shard.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/bow_shard.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
 		}
 		for (var hCrystal = 0; hCrystal < Player.inventory[3][1][1][0].length; hCrystal++) {
 			slotID++;
@@ -1857,7 +1875,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='healthcrystal.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected healthcrystal lvl" + Player.inventory[3][1][1][1][hCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/healthcrystal.png'>" + Player.inventory[3][1][1][0][hCrystal] + "<span class='info'>" + hCrystal + "</span></div></td>");
 		}
 		for (var eCrystal = 0; eCrystal < Player.inventory[3][2][1][0].length; eCrystal++) {
 			slotID++;
@@ -1866,7 +1884,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='energycrystal.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/energycrystal.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
 		}
 
 		for (var rFragment = 0; rFragment < Player.inventory[1][1][1].length; rFragment++) {
@@ -1876,7 +1894,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='rune_fragment.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/rune_fragment.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
 		}
 
 		for (var attShard = 0; attShard < Player.inventory[2][1][1].length; attShard++) {
@@ -1886,7 +1904,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='attribute_shard.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/attribute_shard.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
 		}
 
 		for (var weaponSel = 0; weaponSel < Player.weaponInventory.length; weaponSel++) {
@@ -1896,7 +1914,7 @@ function equipItem(action, slot) {
 				slotID = 1;
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		}
 
 		var selected = [];
@@ -2155,13 +2173,13 @@ function equipWeapon(weapon) {
 				$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 			}
 			if (Player.weaponInventory[weaponSel].fireDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon fire type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		} else if (Player.weaponInventory[weaponSel].iceDamage > 0 && Player.weaponInventory[weaponSel].fireDamage == 0 && Player.weaponInventory[weaponSel].poisonDamage == 0) {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon ice type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		} else if (Player.weaponInventory[weaponSel].poisonDamage > 0 && Player.weaponInventory[weaponSel].iceDamage == 0 && Player.weaponInventory[weaponSel].fireDamage == 0) {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon poison type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		} else {
-			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
+			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected weapon type" + Player.weaponInventory[weaponSel].type + " lvl" + Player.weaponInventory[weaponSel].weaponLevel + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword.png'>" + Player.weaponInventory[weaponSel].name + "<span class='info'>" + weaponSel + "</span></div></td>");
 		}
 		}
 
@@ -2246,13 +2264,13 @@ function battleInventory() {
 		}
 		if (Player.inventoryEquipped[(slotID - 1)].length > 1) {
 			if (Player.inventoryEquipped[(slotID - 1)][1] == "energycrystal") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='energycrystal.png'>Small Energy Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl1 filled' id='" + "slot" + slotID.toString() + "'><img src='icons/energycrystal.png'>Small Energy Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1] == "energycrystal2") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='energycrystal.png'>Average Energy Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot energycrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='icons/energycrystal.png'>Average Energy Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1] == "healthcrystal") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl1 flilled' id='" + "slot" + slotID.toString() + "'><img src='healthcrystal.png'>Small Health Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl1 flilled' id='" + "slot" + slotID.toString() + "'><img src='icons/healthcrystal.png'>Small Health Crystal</div></td>");
 			} else if (Player.inventoryEquipped[(slotID - 1)][1].toString() == "healthcrystal2") {
-				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='healthcrystal.png'>Average Health Crystal</div></td>");
+				$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot healthcrystal lvl2 filled' id='" + "slot" + slotID.toString() + "'><img src='icons/healthcrystal.png'>Average Health Crystal</div></td>");
 			}
 		} else {
 			$("#tr" + rowNumber.toString()).append("<td><div class='select unselected invslot empty' id='" + "slot" + slotID.toString() + "'><img src=''>Slot " + slotID + "</div></td>");
