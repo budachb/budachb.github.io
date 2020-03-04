@@ -805,7 +805,7 @@ function inventoryPage() {
 			slotID = 1;
 			$("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
 		}
-		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/icons/energycrystal.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
+		$("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/energycrystal.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
 	}
 
 	for (var rFragment = 0; rFragment < Player.inventory[1][1][1].length; rFragment++) {
