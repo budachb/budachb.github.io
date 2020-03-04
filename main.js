@@ -1,5 +1,5 @@
 // JavaScript File for Risbane:
-// V.0.4.1
+// V.0.4.1.5
 
 // Main Global Varriables
 
@@ -59,6 +59,12 @@ var enemySkillPointValue;
 var enemyAbilities;
 var enemyDrops;
 var enemy;
+
+// Enemy Names
+var enemyNamePrefix = ["Malakith", "Zorren", "Karak", "Maldred", "Skidrel", "Valcor", "Synoid", "Terendal", "Hydras", "Covela", "Saratose", "Idrak", "Boldran", "Novark", "Potrius", "Quaras", "Tetripak", "Reshdak", "Xorn", "Lojoshako"];
+
+var enemyNameSuffix = ["The Demolisher", "The Inaiahilator", "Storm Bringer", "The Shadow", "Blade Master", "The Soilder", "Soul Eater", "Black Heart", "Death Monger", "Shreader", "Devourer", "The Infested", "The Ripper", "The Deamon", "Of Flame", "Of Death", "Of Smoke", "Of Wrath", "The Snake", "The Soulless"];
+
 
 // Enemy Stat Guesses and generation
 var defenseGuess;
@@ -409,16 +415,19 @@ function updateStats(start) {
 function Battle() {
     battle++;
     $("#inventoryOpt").hide();
-    console.log(battle);
+    // console.log(battle); For Debugging
+
+    var randomPrefix = Math.floor(Math.random() * enemyNamePrefix.length);
+    var randomSuffix = Math.floor(Math.random() * enemyNameSuffix.length);
 
     // Enemy Creation
     if (battle >= 1 && battle <= 10) {
         enemyLevel = 1;
-        enemyName = "Placeholder";
+        enemyName = enemyNamePrefix[randomPrefix] + " " + enemyNameSuffix[randomSuffix];
         enemyExperience = Math.floor(Math.random() * 80 + 20);
         enemyDefense = Math.floor(Math.random() * 15 + 1);
         enemyHP = Math.floor(Math.random() * 30 + 1);
-        enemyDamage = Math.floor(Math.random() * (100 / (Math.random() * Player.luck + Player.intelligence) / enemyLevel) + (enemyLevel * 10 / (Math.random() * Player.luck)) + 5);
+        enemyDamage = Math.floor(Math.random() * (75 / ((Math.random() * Player.luck + Player.intelligence) / enemyLevel)) + (enemyLevel * 10 / (Math.random() * Player.luck)) + 5);
         if (enemyDamage <= 0) {
             enemyDamage = 1;
         }
@@ -439,22 +448,23 @@ function Battle() {
         ];
     } else if (battle > 10 && battle <= 20) {
         enemyLevel = 2;
-        enemyName = "Placeholder LVL 2";
+        enemyName = enemyNamePrefix[randomPrefix] + " " + enemyNameSuffix[randomSuffix];
         enemyDefense = Math.floor(Math.random() * 15 + 1);
-        enemyHP = Math.floor(Math.random() * 30 + 1);
-        enemyDamage = Math.floor(Math.random() * (100 / (Math.random() * Player.luck + Player.intelligence) / enemyLevel) + (enemyLevel * 10 / (Math.random() * Player.luck)) + 5);
+        enemyExperience = Math.floor(Math.random() * 175 + 50);
+        enemyHP = Math.floor(Math.random() * 40 + 5);
+        enemyDamage = Math.floor(Math.random() * (100 / ((Math.random() * Player.luck + Player.intelligence) / enemyLevel)) + (enemyLevel * 15 / (Math.random() * Player.luck)) + 5);
         if (enemyDamage <= 0) {
             enemyDamage = 1;
         }
         enemyRange = Math.floor(Math.random() * 15 + 1);
         enemySpeed = Math.floor(Math.random() * (30 / (enemyDefense / enemyLevel)));
-        enemyDistance = Math.floor((Math.random() * ((enemyLevel * 10) / (Math.random() * Player.luck + 1)) + 5));
+        enemyDistance = Math.floor((Math.random() * ((enemyLevel * 15) / (Math.random() * Player.luck + 1)) + 8));
         enemySkillPointValue = 0.01;
         enemyStatPointValue = Math.floor(Math.random() * 2 + 1);
         enemyAbilities = "none";
         enemyDrops = [
             ["Sword Shard", 1, 0.3, "ss"],
-            ["Fine Sword Shard", 2, 0.3, "ss"],
+            ["Fine Sword Shard", 2, 0.1, "ss"],
             ["Bow Shard", 1, 0.3, "bs"],
             ["Axe Shard", 1, 0.3, "axs"],
             ["Rune Fragment", 1, 0.2, "rf"],
@@ -463,9 +473,31 @@ function Battle() {
             ["Small Energy Crystal", 1, 0.5, "ec"]
         ];
     } else if (battle > 20 && battle <= 30) {
-
-    } else {
-
+        enemyLevel = 3;
+        enemyName = enemyNamePrefix[randomPrefix] + " " + enemyNameSuffix[randomSuffix];
+        enemyExperience = Math.floor(Math.random() * 300 + 100);
+        enemyDefense = Math.floor(Math.random() * 15 + 1);
+        enemyHP = Math.floor(Math.random() * 100 + 30);
+        enemyDamage = Math.floor(Math.random() * (150 / ((Math.random() * Player.luck + Player.intelligence) / enemyLevel)) + (enemyLevel * 20 / (Math.random() * Player.luck)) + 5);
+        if (enemyDamage <= 0) {
+            enemyDamage = 1;
+        }
+        enemyRange = Math.floor(Math.random() * 15 + 1);
+        enemySpeed = Math.floor(Math.random() * (30 / (enemyDefense / enemyLevel)));
+        enemyDistance = Math.floor((Math.random() * ((enemyLevel * 20) / (Math.random() * Player.luck + 1)) + 10));
+        enemySkillPointValue = 0.01;
+        enemyStatPointValue = Math.floor(Math.random() * 2 + 1);
+        enemyAbilities = "none";
+        enemyDrops = [
+            ["Sword Shard", 1, 0.3, "ss"],
+            ["Fine Sword Shard", 2, 0.15, "ss"],
+            ["Bow Shard", 1, 0.3, "bs"],
+            ["Axe Shard", 1, 0.3, "axs"],
+            ["Rune Fragment", 1, 0.15, "rf"],
+            ["Attribute Shard", 1, 0.15, "as"],
+            ["Small Health Crystal", 1, 0.35, "hc"],
+            ["Small Energy Crystal", 1, 0.35, "ec"]
+        ];
     }
 
     var defenseRand = Math.random();
@@ -701,6 +733,7 @@ function Attack(weapon) {
 }
 
 function enemyTurn() {
+    var enemyAttack = false;
     if (enemyHP > 0) {
         // Enemy Turn
         output.append("<br>Enemy Health Guess: " + Math.round(hpGuess));
@@ -714,21 +747,10 @@ function enemyTurn() {
                     distanceGuess -= 1;
                     output.append("<br>The distance guess is now: " + distanceGuess);
                 } else {
-                    if (enemyDamage > (Player.defense + ((Math.random() * Player.luck) / 2))) {
-                        Player.health -= (enemyDamage / Player.defense);
-                        output.append("<br>The enemy has attacked!");
-                        output.append("<br>Dealing " + Math.round(enemyDamage / Player.defense) + " damage.");
-                        output.append("<br>Your health is now at " + Math.round(Player.health));
-                        if (Player.health <= 0) {
-                            output.append("<br><br><br><br> Game over! You Have Died.<br> Restart program to play again.");
-                            return;
-                        }
-                    } else {
-                        output.append("<br>The enemy attempted to attack but missed!");
-                    }
+                    enemyAttack = true;
                 }
             } else if (enemyLevel == 2) {
-                if (Player.currentWeapon.type == 1 && enemyDistance <= 5) {
+                if (Player.currentWeapon.range >= 5 && enemyDistance <= 5) {
                     if (enemyRange >= (enemyDistance + 2) && enemyRange > 6) {
                         output.append("<br>The enemy moves 2 spaces away");
                         enemyDistance += 2;
@@ -740,23 +762,53 @@ function enemyTurn() {
                         distanceGuess += 1;
                         output.append("<br>The distance guess is now: " + distanceGuess);
                     } else {
-                        if (enemyDamage > (Player.defense + ((Math.random() * Player.luck) / 2))) {
-                            Player.health -= (enemyDamage / Player.defense);
-                            output.append("<br>The enemy has attacked!");
-                            output.append("<br>Dealing " + Math.round(enemyDamage / Player.defense) + " damage.");
-                            output.append("<br>Your health is now at " + Math.round(Player.health));
-                            if (Player.health <= 0) {
-                                output.append("<br><br><br><br> Game over! You Have Died.<br> Restart program to play again.");
-                                return;
-                            }
+                        enemyAttack = true;
+                    }
+                }
+            } else if (enemyLevel == 3) {
+                if (Player.currentWeapon.range >= 5 && enemyDistance <= 5) {
+                    if (Player.currentWeapon.range >= 8 && enemyRange >= enemyDistance) {
+                        enemyAttack = true;
+                    } else {
+                        if (enemyRange >= (enemyDistance + 3) && enemyRange > 7) {
+                            output.append("<br>The enemy moves 3 spaces away");
+                            enemyDistance += 3;
+                            distanceGuess += 3;
+                            output.append("<br>The distance guess is now: " + distanceGuess);
+                        } else if (enemyRange >= (enemyDistance + 2) && enemyRange > 6) {
+                            output.append("<br>The enemy moves 2 spaces away");
+                            enemyDistance += 2;
+                            distanceGuess += 2;
+                            output.append("<br>The distance guess is now: " + distanceGuess);
+                        } else if (enemyRange >= (enemyDistance + 1) && enemyRange > 5) {
+                            output.append("<br>The enemy moves 1 space away");
+                            enemyDistance += 1;
+                            distanceGuess += 1;
+                            output.append("<br>The distance guess is now: " + distanceGuess);
                         } else {
-                            output.append("<br>The enemy attempted to attack but missed!");
+                            enemyAttack = true;
                         }
                     }
                 }
             }
         } else {
             output.append("<br>The enemy does nothing in its turn.");
+        }
+        if (enemyAttack) {
+            if (enemyDamage > (Player.defense + ((Math.random() * Player.luck) / 2))) {
+                Player.health -= (enemyDamage / Player.defense);
+                output.append("<br>The enemy has attacked!");
+                output.append("<br>Dealing " + Math.round(enemyDamage / Player.defense) + " damage.");
+                output.append("<br>Your health is now at " + Math.round(Player.health));
+                if (Player.health <= 0) {
+                    output.append("<br><br><br><br> Game over! You Have Died.<br> Restart program to play again.");
+						  var height = output[0].scrollHeight;
+						  output.scrollTop(height);
+                    return;
+                }
+            } else {
+                output.append("<br>The enemy attempted to attack but missed!");
+            }
         }
         Turn(); // Next Turn
     } else if (enemyHP <= 0) {
