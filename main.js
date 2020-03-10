@@ -220,10 +220,7 @@ function playerStats() {
                 ]]
             ]
         ];
-        Player.inventoryEquipped = [
-            [1],
-            [2]
-        ];
+        Player.inventoryEquipped = [];
     } else if (Player.class == 2) {
         Player.intelligence = 5 + randomINT;
         Player.level = 1;
@@ -265,10 +262,7 @@ function playerStats() {
                 ]]
             ]
         ];
-        Player.inventoryEquipped = [
-            [1],
-            [2]
-        ];
+        Player.inventoryEquipped = [];
     } else if (Player.class == 3) {
         Player.intelligence = 5 + randomINT;
         Player.luck = 2 + randomLUK;
@@ -310,10 +304,7 @@ function playerStats() {
                 ]]
             ]
         ];
-        Player.inventoryEquipped = [
-            [1],
-            [2]
-        ];
+        Player.inventoryEquipped = [];
     } else {
         Player.intelligence = 5 + randomINT;
         Player.luck = 7 + randomLUK;
@@ -355,10 +346,7 @@ function playerStats() {
                 ]]
             ]
         ];
-        Player.inventoryEquipped = [
-            [1],
-            [2]
-        ];
+        Player.inventoryEquipped = [];
     }
 
     output.append("You have created a character with these stats:<br><br>Name: " + Player.name + "<br>Class: " + Player.className + "<br>Intelligence: " + Player.intelligence + "<br>Luck: " + Player.luck + "<br>Speed: " + Player.speed + "<br>Defense: " + Player.defense + "<br>Health: " + Player.health + "<br>Energy: " + Player.energy + "<br>Energy Regen: " + Player.energyRegen + "<br>Offensive Power Name: " + Player.offensivePowerName + "<br>Offensive Power Cost: " + Player.offensivePowerCost + "<br>Defensive Power Name: " + Player.defensivePowerName + "<br>Defensive Power Cost: " + Player.defensivePowerCost + "<br><br>Press enter to confirm stats.");
