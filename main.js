@@ -1,5 +1,5 @@
 // JavaScript File for Risbane:
-// V.0.4.1.6
+// V.0.4.1.9
 
 // Main Global Varriables
 
@@ -157,6 +157,8 @@ function chooseClass() {
             $("#classIN").off("keypress");
             $("#classIN").remove();
             playerStats();
+        } else {
+            $("#classIN").val("");
         }
         event.stopPropagation();
     });
@@ -181,6 +183,7 @@ function playerStats() {
         Player.intelligence = 10 + randomINT;
         Player.level = 1;
         Player.statPoints = 0;
+        Player.skillPoints = 0;
         Player.experience = 0;
         Player.nextLevel = 100;
         Player.luck = 7 + randomLUK;
@@ -225,6 +228,7 @@ function playerStats() {
         Player.intelligence = 5 + randomINT;
         Player.level = 1;
         Player.statPoints = 0;
+        Player.skillPoints = 0;
         Player.experience = 0;
         Player.nextLevel = 100;
         Player.luck = 4 + randomLUK;
@@ -272,6 +276,7 @@ function playerStats() {
         Player.experience = 0;
         Player.nextLevel = 100;
         Player.statPoints = 0;
+        Player.skillPoints = 0;
         Player.speed = 10 + randomSPD;
         Player.defense = 7 + randomDEF;
         Player.health = 50 + randomHP;
@@ -317,6 +322,7 @@ function playerStats() {
         Player.experience = 0;
         Player.nextLevel = 100;
         Player.statPoints = 0;
+        Player.skillPoints = 0;
         Player.defense = 10 + randomDEF;
         Player.health = 100 + randomHP;
         Player.energy = 5 + randomENG;
@@ -624,6 +630,8 @@ function Turn() {
                     battleInventory();
                     break;
             }
+        } else {
+            $("#action").val("");
         }
         event.stopPropagation();
     });
@@ -902,7 +910,7 @@ function inventoryPage() {
     output.css("width", "32.5%");
     output.append("<div id='tableContainer'><table id='invTable'><thead><th>Inventory:</th></thead><tbody><tr id='tr1'></tr></tbody></table></div>");
     $("#inventoryOpt").show();
-    $("#inventoryOpt").html("<div><h2>Player Options</h2><button id='statUp'>Upgrade Stats</button><button id='inventoryBTN'>Inventory</button><button>Skill Tree</button></div><br><div><h2>Weapon Options</h2><button id='forge'>Forge Weapon</button><button>Upgrade Weapon</button><button>Scrap Weapon</button><button id='weaponEq'>Equip Weapon</button></div><br><div><h2>Other Item Options</h2><button id='othforge'>Forge Gems</button><button>Forge Attribute</button><button>Forge Rune</button></div>");
+    $("#inventoryOpt").html("<div><h2>Player Options</h2><button id='statUp'>Upgrade Stats</button><button id='inventoryBTN'>Inventory</button><button id='skillTree'>Skill Tree</button></div><br><div><h2>Weapon Options</h2><button id='forge'>Forge Weapon</button><button>Upgrade Weapon</button><button id='scrapWp'>Scrap Weapon</button><button id='weaponEq'>Equip Weapon</button></div><br><div><h2>Other Item Options</h2><button id='othforge'>Forge Gems</button><button>Forge Attribute</button><button>Forge Rune</button></div>");
 
     for (var sShards = 0; sShards < Player.inventory[0][1][1][1].length; sShards++) {
         slotID++;
@@ -1111,6 +1119,7 @@ function inventoryPage() {
 
 
     $("#statUp").click(function() {
+		  $(document).off("keydown");
         $("#inventoryOpt").html("");
         statUpgrade();
         $("#statUp").remove();
@@ -1118,6 +1127,7 @@ function inventoryPage() {
     });
 
     $("#weaponEq").click(function() {
+		  $(document).off("keydown");
         $("#inventoryOpt").html("");
         equipWeapon("ask");
         $("#weaponEq").remove();
@@ -1125,18 +1135,78 @@ function inventoryPage() {
     });
 
     $("#inventoryBTN").click(function() {
+		  $(document).off("keydown");
         $("#inventoryOpt").html("");
         inventoryPlayer();
         $("#inventoryBTN").remove();
         $("#nextBattle").remove();
     });
+	
+	 $("#skillTree").click(function() {
+		 $(document).off("keydown");
+		 $("#nextBattle").remove();
+       $("#inventoryOpt").html("<h1>Skill Tree:</h1><br><br><center><div id='skpDiv'>Skill Points: " + Player.skillPoints + "</div><br><table id='skillTable'><tbody><tr id='skillHead'><td>Combat</td><td>Tactics</td><td>Player</td></tr><tr class='srow'><td class='tree'>Attack Menu 0/5</td><td class='tree'>Run Away 0/1</td><td id='skillInvSlot' class='tree'>Inventory Slots</td></tr><tr class='srowOfset'><td class='tree'>Yeet</td><td class='tree'>Yoat</td><td class='tree'>Yaat</td></tr></tbody></table></center>");
+		 $("#bottombar").append("<button id='inventoryBack'>Back</button>");
+       $("#inventoryBack").click(function() {
+           $('#inventoryBack').remove();
+           inventoryPage();
+       });
+		 
+		 $(".tree").click(function() {
+			 var item = $(this).attr("id");
+			 skillTreeClick(item);
+		 });
+	 });
+	
+	 $("#scrapWp").click(function() { 
+		  $(document).off("keydown");
+		  $("#nextBattle").remove();
+        $("#inventoryOpt").html("<h1>Scrap:</h1><br><br><p>Choose a weapon to destroy, breaking it down into shards which can be used to craft a better weapon in the future.</p>");
+        $("#bottombar").append("<button id='inventoryBack'>Back</button>");
+        $("#inventoryBack").click(function() {
+            $('#inventoryBack').remove();
+            inventoryPage();
+        });
+		 
+		 var scrapWpBtn = $("<button>/", {
+            text: 'Scrap Weapon',
+            click: function() {
+                if (selected.length > 1) {
+                    alert("You can only select one item to be scrapped at a time.");
+                } else if (selected.length == 1) {
+						 var name = selected[0].replace(/[0-9]/g, '').toString().trim();
+						 for (var weps = 0; weps < Player.weaponInventory.length; weps++) {
+							 if (name == Player.weaponInventory[weps].name) {
+                    			$("#nextBattle").remove();
+                    			$("#scrapWp").remove();
+                    			scrapWeapon(Player.weaponInventory[weps]);
+								   $(document).off("keydown");
+								   weps = Player.weaponInventory.length;
+							 }
+						 }
+                } else {
+                    alert("You need to select a weapon first")
+                    $(craftGBtn).remove();
+                    $("#scrapWp").remove();
+						  $(document).off("keydown");
+						  inventoryPage();
+                }
+					inventoryPage();
+            }
+        });
+		 
+        $("#inventoryOpt").append(scrapWpBtn);
+        $("#scrapWp").remove();
+	 });
 
     $("#othforge").click(function() {
+		  $(document).off("keydown");
         $("#nextBattle").remove();
         $("#inventoryOpt").html("<h1>Forge Gem:</h1><br><br><p>Please select 3 gems of the same type to be forged into a better gem.</p>");
         $("#bottombar").append("<button id='inventoryBack'>Back</button>");
         $("#inventoryBack").click(function() {
             $('#inventoryBack').remove();
+			   $(document).off("keydown");
             inventoryPage();
         });
 
@@ -1169,10 +1239,12 @@ function inventoryPage() {
 
     $("#forge").click(function() {
         $("#nextBattle").remove();
+		  $(document).off("keydown");
         $("#inventoryOpt").html("<h1>Forge Weapon:</h1><br><br><p>Please select three Weapon Shards of the same type to be forged into a new weapon.</p>");
         $("#bottombar").append("<button id='inventoryBack'>Back</button>");
         $("#inventoryBack").click(function() {
             $('#inventoryBack').remove();
+			   $(document).off("keydown");
             inventoryPage();
         });
 
@@ -1227,7 +1299,7 @@ function inventoryPage() {
                 }
             }
         });
-
+		 
         $("#inventoryOpt").append(swordForge);
         $("#inventoryOpt").append(axeForge);
         $("#inventoryOpt").append(bowForge);
@@ -1241,9 +1313,24 @@ function inventoryPage() {
         selected = [];
         $("#nextBattle").remove();
         output.css("width", "75%");
+		  $(document).off("keydown");
         Battle();
-        $("#nextBattle").off(click);
+        $("#nextBattle").off("click");
     });
+	
+		$(document).keydown(function(event) {
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+      	if (keycode == '13') {
+               output.html("");
+        			selected = [];
+        			$("#nextBattle").remove();
+        			output.css("width", "75%");
+				   $("#nextBattle").off("click");
+				   $(document).off("keydown");
+        			Battle();
+      	}
+      	event.stopPropagation();
+			});
 }
 
 function inventoryActionUpdate(selected) {
@@ -1312,6 +1399,8 @@ function Move(update) {
                         Move(2);
                         break;
                 }
+            } else {
+                $("#moveIn").val("");
             }
             event.stopPropagation();
         });
@@ -1367,6 +1456,8 @@ function Move(update) {
                 }
                 $("#clm").remove();
                 enemyTurn();
+            } else {
+                $("#clm").val("");
             }
             event.stopPropagation();
         });
@@ -1422,6 +1513,8 @@ function Move(update) {
                 }
                 $("#clm").remove();
                 enemyTurn();
+            } else {
+                $("#clm").val("");
             }
             event.stopPropagation();
         });
@@ -1818,6 +1911,8 @@ function statUpgrade() {
                     });
                     break;
             }
+        } else {
+            $("#increaseSt").val("");
         }
         event.stopPropagation();
     });
@@ -1845,6 +1940,7 @@ function statUpgradeClick(stat, upgrade, cost) {
         Player.statPoints -= cost;
         statUpgrade();
     }
+    updateStats(false);
 }
 
 function inventoryPlayer() {
@@ -2874,4 +2970,98 @@ function unequipItem(action, slot) {
         Player.inventoryEquipped[slot].splice(1, Player.inventoryEquipped[slot].length);
         inventoryPlayer();
     }
+}
+
+function scrapWeapon(weapon) {
+	alert(weapon.name);
+}
+
+function scrapWeapon(weapon) {
+	if (weapon.weaponLevel <= 1) {
+		// Destroy Weapon
+		if (Player.weaponInventory.length <= 1) { // Prevents Deleting Last Weapon
+			alert("You are on your last weapon, you can not scrap.");
+			inventoryPage();
+		} else {
+			// Deletes Weapon
+			for (var weps = 0; weps < Player.weaponInventory.length; weps++) {
+				if (weapon == Player.weaponInventory[weps]) {
+					Player.weaponInventory.splice(weps, 1);
+					weps = Player.weaponInventory.length;
+				}
+			}	
+			
+			if (weapon.type == 1) { // Gives back shards depending on the weapon type
+				// Gives Back Random Ammmount of Sword Shards
+				var random = Math.floor(Math.random()*3+1);
+				for (var i = 0; i < random; i++) {
+					Player.inventory[0][1][1][1].push("Sword Shard");
+				}
+			} else if (weapon.type == 2) {
+				// Gives Back Random Ammmount of Axe Shards
+				var random = Math.floor(Math.random()*3+1);
+				for (var i = 0; i < random; i++) {
+					Player.inventory[0][1][2][1].push("Axe Shard");
+				}
+			} else if (weapon.type == 3) {
+				// Gives Back Random Ammmount of Bow Shards
+				var random = Math.floor(Math.random()*3+1);
+				for (var i = 0; i < random; i++) {
+					Player.inventory[0][1][3][1].push("Bow Shard");
+				}
+			}
+			
+			// Changes Current Weapon if it is deleted to prevent unsing non-existant weapon
+			if (weapon == Player.currentWeapon) {
+				Player.currentWeapon = Player.weaponInventory[0];	
+			}
+		}
+	}
+}
+
+function skillTreeClick(item) {
+	$("#inventoryBack").remove();
+	var skillPointCost = 0;
+	var descriptions = [];
+	var level = Player.inventoryEquipped.length;
+	var nextLevel = level + 1;
+	
+	if (item == "skillInvSlot") {
+		// Gets cost for level up
+		skillPointCost = level*2+1;
+		
+		// Descriptions for each rank of the skill
+		descriptions = ["At this level you will gain your first inventory slot which can be used by equipping items to the player inventory, and using that inventory at strategic times during battle."];
+		
+		// Creates Popup for the upgrade
+		$("#main").append("<div id='popup'><h1>Inventory Slots | " + level + "/10</h1><button id='closePopup'>X</button><p id='popupDesc'><b>Description:</b> Inventory slots are spaces where you can equip crystals and other items to use during a battle.</p><div id='treeUpgrade'><div id='levelsDesc'><b>Next Level:</b> " + nextLevel + "<br><b>Cost:</b> " + skillPointCost + "<br>" + descriptions[level] + "</div><div id='upgradeClick'><b>Skill Points:</b> " + Player.skillPoints + "<br><button id='skillUpgradeBtn'>Upgrade</button></div></div></div>");
+		
+		// Close Popup Button
+		$("#closePopup").click(() => {
+			$("#popup").remove();
+			$("#bottombar").append("<button id='inventoryBack'>Back</button>");
+         $("#inventoryBack").click(function() {
+           $('#inventoryBack').remove();
+           inventoryPage();
+       });
+		});
+		
+		// Upgrade
+		$("#skillUpgradeBtn").click(() => {
+			if (skillPointCost <= Player.skillPoints) {
+				Player.inventoryEquipped.push([(Player.inventoryEquipped.length+1)]);
+				Player.skillPoints -= skillPointCost;
+				$("#popup").remove();
+				inventoryPage();
+			} else {
+				alert("You do not have enough skill points for the upgrade.");
+			}
+		});
+	} else {
+		$("#bottombar").append("<button id='inventoryBack'>Back</button>");
+		$("#inventoryBack").click(function() {
+           $('#inventoryBack').remove();
+           inventoryPage();
+      });
+	}
 }

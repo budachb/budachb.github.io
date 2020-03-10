@@ -1,5 +1,5 @@
 /* Risbane CSS File */
-/* V.0.4.1.6 */
+/* V.0.4.1.9 */
 
 /* Global Varriables and Fonts */
 @import url('https://fonts.googleapis.com/css?family=Ubuntu&display=swap');
@@ -397,6 +397,120 @@ topbar p {
 	display: inline;
 }
 
+#skillTable {
+	text-align: center;
+	width: 90%;
+	border-collapse: collapse;
+}
+
+.srow td, .srowOfset td {
+	font-size: 0.9rem;
+	cursor: pointer;
+	margin: 0px;
+	transition: 0.5s;
+	color: black;
+	border: 1px solid black;
+}
+
+.srow td:hover, .srowOfset td:hover {
+	background-color: white;
+}
+
+#skillHead {
+	background-color: black;
+}
+
+#skillHead td {
+	transition: none;
+	font-weight: bold;
+	font-size: 1rem;
+	color: white;
+	border: 1px solid black;
+}
+
+.srow {
+	background-color: #808080;
+}
+
+.srowOfset {
+	background-color: #606060;
+}
+
+#popup {
+	position: absolute;
+	width: 40%;
+	height: 50%;
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	background-color: #404040;
+	border: 4px solid black;
+	border-radius: 15px;
+	padding: 20px;
+}
+
+#popup h1 {
+	text-align: center;
+	margin: 10px;
+}
+
+#closePopup {
+	position: absolute;
+	height: auto;
+	top: 0;
+	right: 0;
+	background-color: red;
+	color: black;
+	font-weight: bold;
+	border: 2px solid black; 
+	border-radius: 50%;
+	margin: 10px;
+	outline: none;
+	cursor: pointer;
+}
+
+#popupDesc {
+	text-align: center;
+}
+
+#treeUpgrade {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	right: 0;
+	margin: auto;
+	text-align: center; 
+	font-size: 1rem;
+	padding: 10px;
+}
+
+#levelsDesc {
+	position: absolute;
+	width: 50%;
+	height: 100%;
+	padding-top: 20px;
+}
+
+#upgradeClick {
+	position: absolute;
+	width: 50%;
+	height: 100%;
+	right: 0;
+	padding-top: 20px;
+}
+
+#skillUpgradeBtn {
+	background-color: darkblue;
+	color: white;
+	bottom: 0;
+	cursor: pointer;
+	margin: 10px;
+	outline: none;
+}
+
 /*______________*/
 
 
@@ -482,3 +596,12 @@ topbar p {
 }
 
 /*______*/
+
+/* Custom Higilight for Supported Browsers */
+
+::selection {
+	background-color: #FF4500;
+	color: #FFFFFF;
+}
+
+/*___________*/
