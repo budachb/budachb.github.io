@@ -907,7 +907,11 @@ function inventoryPage() {
             slotID = 1;
             $("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
         }
-        $("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
+        if (Player.inventory[0][1][1][1][sShards] == "Sword Shard") {
+            $("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard lvl1' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
+		  } else if (Player.inventory[0][1][1][1][sShards] == "Fine Sword Shard") {
+            $("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard lvl2' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
+		  }
     }
     for (var aShards = 0; aShards < Player.inventory[0][1][2][1].length; aShards++) {
         slotID++;
@@ -1014,7 +1018,11 @@ function inventoryPage() {
             $(this).css("border", "1px solid blue");
             $(this).removeClass("unselected").addClass("selected");
             if ($(this).hasClass('swordshard')) {
-                selected.push("swordshard");
+                if ($(this).hasClass("lvl1")) {
+                    selected.push("swordshard"); 
+                } else if ($(this).hasClass("lvl2")) {
+				    selected.push("swordshard2");
+				}
                 inventoryActionUpdate(selected);
             } else if ($(this).hasClass('axeshard')) {
                 selected.push("axeshard");
@@ -1048,6 +1056,10 @@ function inventoryPage() {
             if ($(this).hasClass('swordshard')) {
                 for (var f = 0; f < selected.length; f++) {
                     if (selected[f] == "swordshard") {
+                        selected.splice(f, 1);
+                        f = selected.length;
+                        inventoryActionUpdate(selected);
+                    } else if (selected[f] == "swordshard2") {
                         selected.splice(f, 1);
                         f = selected.length;
                         inventoryActionUpdate(selected);
@@ -1332,6 +1344,8 @@ function inventoryActionUpdate(selected) {
     for (var item = 0; item < selected.length; item++) {
         if (selected[item] == "swordshard" && selected.length == 1) {
             $("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Sword Shard:</h2><br><br></center><p>Description: a fragmented piece of metal that once was part of a sword. If three of these are melted down they can be used to forge a new sword. <br><br>Scrap Value: 100 xp<br>Scrap Items: None<br><br>Equipable: no<br><br>Level: 0</p>");
+        } else if (selected[item] == "swordshard2" && selected.length == 1) {
+            $("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Fine Sword Shard:</h2><br><br></center><p>Description: a fragmented piece of metal that once was part of a fine sword. If three of these are melted down they can be used to forge a new level 2 sword. <br><br>Scrap Value: 200 xp<br>Scrap Items: None<br><br>Equipable: no<br><br>Level: 2</p>"); 
         } else if (selected[item] == "axeshard" && selected.length == 1) {
             $("#sidebar").html("<center><h2 style='margin-bottom: 0px, font-weight: bold;'>Axe Shard:</h2><br><br></center><p>Description: a fragmented piece of metal and bits of wooden handle that once was part of an axe. If three of these are melted down and combined they can be used to forge a new axe. <br><br>Scrap Value: 100 xp<br>Scrap Items: None<br><br>Equipable: no<br><br>Level: 0</p>");
         } else if (selected[item] == "bowshard" && selected.length == 1) {
@@ -2044,33 +2058,6 @@ function equipItem(action, slot) {
         $("#inventoryOpt").html("<h1>Gear:</h1><br><p style='color: black'>Select an item to equip.</p>");
         $("#inventoryOpt").show();
 
-        for (var sShards = 0; sShards < Player.inventory[0][1][1][1].length; sShards++) {
-            slotID++;
-            if (slotID >= 5) {
-                rowNumber += 1;
-                slotID = 1;
-                $("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
-            }
-            $("#tr" + rowNumber.toString()).append("<td><div class='select unselected swordshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/sword_shard.png'>" + Player.inventory[0][1][1][1][sShards] + "<span class='info'>" + sShards + "</span></div></td>");
-        }
-        for (var aShards = 0; aShards < Player.inventory[0][1][2][1].length; aShards++) {
-            slotID++;
-            if (slotID >= 5) {
-                rowNumber += 1;
-                slotID = 1;
-                $("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
-            }
-            $("#tr" + rowNumber.toString()).append("<td><div class='select unselected axeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/axe_shard.png'><br>" + Player.inventory[0][1][2][1][aShards] + "<span class='info'>" + aShards + "</span></div></td>");
-        }
-        for (var bShards = 0; bShards < Player.inventory[0][1][3][1].length; bShards++) {
-            slotID++;
-            if (slotID >= 5) {
-                rowNumber += 1;
-                slotID = 1;
-                $("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
-            }
-            $("#tr" + rowNumber.toString()).append("<td><div class='select unselected bowshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/bow_shard.png'>" + Player.inventory[0][1][3][1][bShards] + "<span class='info'>" + bShards + "</span></div></td>");
-        }
         for (var hCrystal = 0; hCrystal < Player.inventory[3][1][1][0].length; hCrystal++) {
             slotID++;
             if (slotID >= 5) {
@@ -2088,26 +2075,6 @@ function equipItem(action, slot) {
                 $("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
             }
             $("#tr" + rowNumber.toString()).append("<td><div class='select unselected energycrystal lvl" + Player.inventory[3][2][1][1][eCrystal].toString() + "' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/energycrystal.png'>" + Player.inventory[3][2][1][0][eCrystal] + "<span class='info'>" + eCrystal + "</span></div></td>");
-        }
-
-        for (var rFragment = 0; rFragment < Player.inventory[1][1][1].length; rFragment++) {
-            slotID++;
-            if (slotID >= 5) {
-                rowNumber += 1;
-                slotID = 1;
-                $("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
-            }
-            $("#tr" + rowNumber.toString()).append("<td><div class='select unselected runefragment' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/rune_fragment.png'>" + Player.inventory[1][1][1][rFragment] + "<span class='info'>" + rFragment + "</span></div></td>");
-        }
-
-        for (var attShard = 0; attShard < Player.inventory[2][1][1].length; attShard++) {
-            slotID++;
-            if (slotID >= 5) {
-                rowNumber += 1;
-                slotID = 1;
-                $("#invTable").append("<tr id='tr" + rowNumber.toString() + "'></tr>");
-            }
-            $("#tr" + rowNumber.toString()).append("<td><div class='select unselected attributeshard' id='" + "slot" + rowNumber.toString() + slotID.toString() + "'> <img src='icons/attribute_shard.png'>" + Player.inventory[2][1][1][attShard] + "<span class='info'>" + attShard + "</span></div></td>");
         }
 
         for (var weaponSel = 0; weaponSel < Player.weaponInventory.length; weaponSel++) {
@@ -2157,19 +2124,8 @@ function equipItem(action, slot) {
             if ($(this).hasClass('unselected')) {
                 $(this).css("border", "1px solid blue");
                 $(this).removeClass("unselected").addClass("selected");
-                if ($(this).hasClass('swordshard')) {
-                    selected.push("swordshard");
-                    inventoryActionUpdate(selected);
-                    slotInstall(selected, slot, "empty");
-                } else if ($(this).hasClass('axeshard')) {
-                    selected.push("axeshard");
-                    inventoryActionUpdate(selected);
-                    slotInstall(selected, slot, "empty");
-                } else if ($(this).hasClass('bowshard')) {
-                    selected.push("bowshard");
-                    inventoryActionUpdate(selected);
-                    slotInstall(selected, slot, "empty");
-                } else if ($(this).hasClass("healthcrystal")) {
+                
+                if ($(this).hasClass("healthcrystal")) {
                     if ($(this).hasClass("lvl1")) {
                         selected.push("healthcrystal");
                         inventoryActionUpdate(selected);
@@ -2196,34 +2152,7 @@ function equipItem(action, slot) {
             } else {
                 $(this).css("border", "1px solid white");
                 $(this).removeClass("selected").addClass("unselected");
-                if ($(this).hasClass('swordshard')) {
-                    for (var f = 0; f < selected.length; f++) {
-                        if (selected[f] == "swordshard") {
-                            selected.splice(f, 1);
-                            f = selected.length;
-                            inventoryActionUpdate(selected);
-                            slotInstall(selected, slot, "empty");
-                        }
-                    }
-                } else if ($(this).hasClass('axeshard')) {
-                    for (var f = 0; f < selected.length; f++) {
-                        if (selected[f] == "axeshard") {
-                            selected.splice(f, 1);
-                            f = selected.length;
-                            inventoryActionUpdate(selected);
-                            slotInstall(selected, slot, "empty");
-                        }
-                    }
-                } else if ($(this).hasClass('bowshard')) {
-                    for (var f = 0; f < selected.length; f++) {
-                        if (selected[f] == "bowshard") {
-                            selected.splice(f, 1);
-                            f = selected.length;
-                            inventoryActionUpdate(selected);
-                            slotInstall(selected, slot, "empty");
-                        }
-                    }
-                } else if ($(this).hasClass('healthcrystal')) {
+                if ($(this).hasClass('healthcrystal')) {
                     for (var f = 0; f < selected.length; f++) {
                         if (selected[f] == "healthcrystal") {
                             selected.splice(f, 1);
@@ -2386,7 +2315,11 @@ function equipItem(action, slot) {
                 $(this).css("border", "1px solid blue");
                 $(this).removeClass("unselected").addClass("selected");
                 if ($(this).hasClass('swordshard')) {
-                    selected.push("swordshard");
+                    if ($(this).hasClass("lvl1")) {
+                        selected.push("swordshard"); 
+                    } else if ($(this).hasClass("lvl2")) {
+                        selected.push("swordshard2");
+				    }
                     inventoryActionUpdate(selected);
                     slotInstall(selected, slot, "replace");
                 } else if ($(this).hasClass('axeshard')) {
@@ -2430,7 +2363,10 @@ function equipItem(action, slot) {
                             selected.splice(f, 1);
                             f = selected.length;
                             inventoryActionUpdate(selected);
-                            slotInstall(selected, slot, "replace");
+                        } else if (selected[f] == "swordshard2") {
+                            selected.splice(f, 1);
+                            f = selected.length;
+                            inventoryActionUpdate(selected);
                         }
                     }
                 } else if ($(this).hasClass('axeshard')) {
@@ -2770,7 +2706,11 @@ function battleInventory() {
                 $(this).css("border", "1px solid blue");
                 $(this).removeClass("unselected").addClass("selected");
                 if ($(this).hasClass('swordshard')) {
-                    selected.push("swordshard");
+                    if ($(this).hasClass("lvl1")) {
+                        selected.push("swordshard"); 
+                    } else if ($(this).hasClass("lvl2")) {
+				        selected.push("swordshard2");
+				    }
                     battleInventoryAction(selected, $(this).attr("id"));
                 } else if ($(this).hasClass('axeshard')) {
                     selected.push("axeshard");
@@ -2810,7 +2750,11 @@ function battleInventory() {
                     if (selected[f] == "swordshard") {
                         selected.splice(f, 1);
                         f = selected.length;
-                        battleInventoryAction(selected, $(this).attr("id"));
+                        inventoryActionUpdate(selected);
+                    } else if (selected[f] == "swordshard2") {
+                        selected.splice(f, 1);
+                        f = selected.length;
+                        inventoryActionUpdate(selected);
                     }
                 }
             } else if ($(this).hasClass('axeshard')) {
