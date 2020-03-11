@@ -531,6 +531,14 @@ topbar p {
 	background-color: darkblue;
 }
 
+.swordshard.lvl1 {
+	background-color: #404040;
+}
+
+.swordshard.lvl2 {
+	background-color: lightblue;
+}
+
 .weapon.lvl0 {
 	background-color: black;
 }
